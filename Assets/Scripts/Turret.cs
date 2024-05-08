@@ -12,6 +12,7 @@ public class Turret : MonoBehaviour
     [SerializeField] GameObject missilePlaceholder;
     [SerializeField] TargetPointer targetPointer;
     [SerializeField] Animator animator;
+    [SerializeField] AudioSource audioSource;
     [SerializeField] float reloadTime;
     bool reloading = false;
 
@@ -52,6 +53,7 @@ public class Turret : MonoBehaviour
 
     void Shoot() {
         if (Input.GetMouseButtonDown(0) && targetPointer.isHiting && !reloading) {
+            audioSource.Play();
             Instantiate(projectileToInstantiate, missilePlaceholder.transform.position, missilePlaceholder.transform.rotation);
             StartCoroutine(ReloadTimer());
         }
