@@ -264,6 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectToInstantiate: {fileID: 6690735228758070296, guid: 20d6383becbbd5243a46644bfd6c8463, type: 3}
+  explosionPower: 400
+  explosionRadius: 2
 --- !u!82 &6820894158177250926
 AudioSource:
   m_ObjectHideFlags: 0
@@ -379,8 +381,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.7652059, y: 1.6272157, z: 4.297901}
-  m_Center: {x: 0.015036464, y: 0.0026740134, z: 0.66352975}
+  m_Size: {x: 1.7652059, y: 0.95129937, z: 3.7358654}
+  m_Center: {x: 0.015036464, y: -0.01317136, z: 0.46806872}
 --- !u!54 &-1093032418205608449
 Rigidbody:
   m_ObjectHideFlags: 0
