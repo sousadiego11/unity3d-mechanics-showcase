@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 422352589}
   m_Layer: 0
   m_Name: Wall (2)
-  m_TagString: Untagged
+  m_TagString: Hittable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 698425101}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Hittable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 704002262}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Hittable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -555,7 +555,7 @@ GameObject:
   - component: {fileID: 826369020}
   m_Layer: 0
   m_Name: Scenario
-  m_TagString: Untagged
+  m_TagString: Hittable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -747,7 +747,7 @@ GameObject:
   - component: {fileID: 1781601419}
   m_Layer: 0
   m_Name: Wall (3)
-  m_TagString: Untagged
+  m_TagString: Hittable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -852,7 +852,7 @@ GameObject:
   - component: {fileID: 1786316379}
   m_Layer: 0
   m_Name: Wall (1)
-  m_TagString: Untagged
+  m_TagString: Hittable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -951,6 +951,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 888348617735421614, guid: 88ab1bba283513843b93c2d9c9f7432c, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3546242997592134217, guid: 88ab1bba283513843b93c2d9c9f7432c, type: 3}
       propertyPath: cam
       value: 
@@ -994,10 +998,6 @@ PrefabInstance:
     - target: {fileID: 5630286613400538824, guid: 88ab1bba283513843b93c2d9c9f7432c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6105675225395229160, guid: 88ab1bba283513843b93c2d9c9f7432c, type: 3}
-      propertyPath: m_TagString
-      value: Pointer
       objectReference: {fileID: 0}
     - target: {fileID: 8953715938712923558, guid: 88ab1bba283513843b93c2d9c9f7432c, type: 3}
       propertyPath: m_Name
