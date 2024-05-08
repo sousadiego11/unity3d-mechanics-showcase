@@ -12,8 +12,8 @@ public class Missile : MonoBehaviour
     }
 
     void Update() {
-        Debug.Log("Magnitude: " + targetPositionCache.magnitude);
         Debug.DrawRay(transform.position, targetPositionCache - transform.position, Color.magenta);
-        transform.position = Vector3.MoveTowards(transform.position, targetPositionCache, Time.deltaTime * 5f);
+        Vector3 direction = (targetPositionCache - transform.position).normalized;
+        transform.Translate(5f * Time.deltaTime * direction, Space.World);
     }
 }
