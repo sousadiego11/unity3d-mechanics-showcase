@@ -21,6 +21,7 @@ public class Turret : MonoBehaviour
     void MoveHead() {
         if (targetPointer.isHiting) {
             Vector3 direction = targetPointer.targetPosition - turretHead.transform.position;
+            Debug.DrawRay(turretHead.transform.position, direction, Color.cyan);
 
             float verticalAngle = Mathf.Asin(direction.y / direction.magnitude) * Mathf.Rad2Deg * -1;
             float horizontalAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
@@ -47,12 +48,8 @@ public class Turret : MonoBehaviour
     }
 
     void Shoot() {
-        Debug.Log("targetPointer.isHiting: " + targetPointer.isHiting);
-        Debug.Log("Input.GetMouseButtonDown(0): " + Input.GetMouseButtonDown(0));
-
         if (Input.GetMouseButtonDown(0) && targetPointer.isHiting) {
-            Debug.Log("Shooting!");
-            Instantiate(projectileToInstantiate, missilePlaceholder.transform.position, Quaternion.identity);
+            Instantiate(projectileToInstantiate, missilePlaceholder.transform.position, missilePlaceholder.transform.rotation);
         }
     }
 }
