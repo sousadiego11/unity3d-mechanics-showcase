@@ -11,6 +11,7 @@ public class Turret : MonoBehaviour
     [SerializeField] GameObject projectileToInstantiate;
     [SerializeField] GameObject missilePlaceholder;
     [SerializeField] TargetPointer targetPointer;
+    [SerializeField] Animator animator;
     [SerializeField] float reloadTime;
     bool reloading = false;
 
@@ -58,7 +59,9 @@ public class Turret : MonoBehaviour
 
     IEnumerator ReloadTimer() {
         reloading = true;
+        animator.SetBool("isShooting", true);
         yield return new WaitForSeconds(reloadTime);
+        animator.SetBool("isShooting", false);
         reloading = false;
     }
 }
