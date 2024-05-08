@@ -21,7 +21,7 @@ public class Turret : MonoBehaviour
     void MoveHead() {
         if (targetPointer.isHiting) {
             Vector3 direction = targetPointer.targetPosition - turretHead.transform.position;
-            Debug.DrawRay(turretHead.transform.position, direction, Color.cyan);
+            Debug.DrawRay(missilePlaceholder.transform.position, direction, Color.cyan);
 
             float verticalAngle = Mathf.Asin(direction.y / direction.magnitude) * Mathf.Rad2Deg * -1;
             float horizontalAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
