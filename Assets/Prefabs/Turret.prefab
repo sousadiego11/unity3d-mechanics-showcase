@@ -52,6 +52,7 @@ MonoBehaviour:
   projectileToInstantiate: {fileID: 7521990365219539448, guid: 3a64cc8cfdad83d4185baf2e614a1048, type: 3}
   missilePlaceholder: {fileID: 5211844875841350602}
   targetPointer: {fileID: 0}
+  reloadTime: 2
 --- !u!1 &1637146996198101911
 GameObject:
   m_ObjectHideFlags: 0

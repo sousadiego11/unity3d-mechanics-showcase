@@ -11,6 +11,8 @@ public class Turret : MonoBehaviour
     [SerializeField] GameObject projectileToInstantiate;
     [SerializeField] GameObject missilePlaceholder;
     [SerializeField] TargetPointer targetPointer;
+    [SerializeField] float reloadTime;
+    bool reloading = false;
 
     void Update() {
         MoveHead();
@@ -48,8 +50,15 @@ public class Turret : MonoBehaviour
     }
 
     void Shoot() {
-        if (Input.GetMouseButtonDown(0) && targetPointer.isHiting) {
+        if (Input.GetMouseButtonDown(0) && targetPointer.isHiting && !reloading) {
             Instantiate(projectileToInstantiate, missilePlaceholder.transform.position, missilePlaceholder.transform.rotation);
+            StartCoroutine(ReloadTimer());
         }
+    }
+
+    IEnumerator ReloadTimer() {
+        reloading = true;
+        yield return new WaitForSeconds(reloadTime);
+        reloading = false;
     }
 }
