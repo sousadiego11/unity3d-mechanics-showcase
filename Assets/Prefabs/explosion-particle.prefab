@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1398492496302681861}
   - component: {fileID: 2204312898595618891}
   - component: {fileID: 3363672483985095450}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4911,7 +4911,7 @@ GameObject:
   - component: {fileID: 1834810248479863711}
   - component: {fileID: 122049436724996278}
   - component: {fileID: 4912763861488846882}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Impact small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9657,7 +9657,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3304153223172914259}
   - component: {fileID: 3213182282826811797}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9752,7 +9752,7 @@ GameObject:
   - component: {fileID: 8518959587881399657}
   - component: {fileID: 5961698408034299719}
   - component: {fileID: 2379499068134059007}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14474,7 +14474,7 @@ GameObject:
   - component: {fileID: 2637027283438798394}
   - component: {fileID: 34797762920089464}
   - component: {fileID: 4205869196784604182}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: explosion-particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19504,7 +19504,7 @@ GameObject:
   - component: {fileID: 1775753668933846438}
   - component: {fileID: 3132212291526672183}
   - component: {fileID: 6368835195380748354}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24296,7 +24296,7 @@ GameObject:
   - component: {fileID: 953166042425143466}
   - component: {fileID: 3683101441635036172}
   - component: {fileID: 1413267288777146277}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Lines
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6237978876090021702}
   - component: {fileID: 1754670839004490878}
   - component: {fileID: 60169610747544298}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 252516555927540323}
   - component: {fileID: 690722946632139531}
   - component: {fileID: 5422870147127886059}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 6820894158177250926}
   - component: {fileID: 7367517391326923462}
   - component: {fileID: -1093032418205608449}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Missile
   m_TagString: Hittable
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e41e7069952a2aa43bb2288e7c37cafd, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.202
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 2334021728971369708}
   - component: {fileID: 2516406636053706245}
   - component: {fileID: 4930629985893605236}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Arm (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +527,7 @@ GameObject:
   - component: {fileID: 5530453443964207132}
   - component: {fileID: 3755700147114322026}
   - component: {fileID: 6043071226385360196}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 1979048003915716204}
   - component: {fileID: 1408394428832328028}
   - component: {fileID: 5622642068637427825}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Arm (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -739,7 +739,7 @@ GameObject:
   - component: {fileID: 5912691323879395644}
   - component: {fileID: 335726870548621967}
   - component: {fileID: 9114455631438260121}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Arm (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

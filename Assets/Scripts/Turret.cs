@@ -61,9 +61,8 @@ public class Turret : MonoBehaviour
 
     IEnumerator ReloadTimer() {
         reloading = true;
-        animator.SetBool("isShooting", true);
+        animator.Play("TurretShoot");
         yield return new WaitForSeconds(reloadTime);
-        animator.SetBool("isShooting", false);
         reloading = false;
     }
 }

@@ -1217,6 +1217,10 @@ PrefabInstance:
       propertyPath: Loop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 888348617735421614, guid: 88ab1bba283513843b93c2d9c9f7432c, type: 3}
+      propertyPath: m_Volume
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 3546242997592134217, guid: 88ab1bba283513843b93c2d9c9f7432c, type: 3}
       propertyPath: cam
       value: 
