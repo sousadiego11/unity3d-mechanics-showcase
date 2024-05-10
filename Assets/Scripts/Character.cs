@@ -23,7 +23,7 @@ public class Character : MonoBehaviour
         direction.y = 0;
 
         if (!Vector3.Equals(direction, Vector3.zero)) {
-            transform.position += direction * movementSpeed * Time.deltaTime;
+            transform.Translate(direction * movementSpeed * Time.deltaTime, Space.World);
 
             Quaternion rotationDirection = Quaternion.LookRotation(direction);
             Quaternion rotationOffset = Quaternion.Slerp(transform.rotation, rotationDirection, rotationSpeed * Time.deltaTime);
