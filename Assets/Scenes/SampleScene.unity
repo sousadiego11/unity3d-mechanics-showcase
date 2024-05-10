@@ -345,7 +345,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1613681063}
-  frameOffset: {x: 0, y: 2, z: 5}
+  positionOffset: {x: 0, y: -2, z: 5}
+  verticalSensitivity: 1
+  horizontalSensitivity: 1
+  invertVertical: 1
+  invertHorizontal: 0
 --- !u!1 &420471712
 GameObject:
   m_ObjectHideFlags: 0

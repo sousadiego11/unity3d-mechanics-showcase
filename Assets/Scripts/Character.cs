@@ -11,32 +11,23 @@ public class Character : MonoBehaviour
     Vector3 direction;
 
     void Update() {
-        BuildDirection();
-        RotateCharacter();
-        MoveCharacter();
+        Move();
     }
 
-    void BuildDirection() {
+    void Move() {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+        Vector3 moveInput = new Vector3(x, 0, z).normalized;
 
-        direction = new Vector3(x, 0, z);
-    }
+        direction = cam.transform.rotation * moveInput;
+        direction.y = 0;
 
-    void MoveCharacter() {
         if (!Vector3.Equals(direction, Vector3.zero)) {
-            Vector3 newDir = cam.transform.rotation * direction;
-            newDir.y = 0;
-            transform.Translate(movementSpeed * Time.deltaTime * newDir);
-        }
-    }
+            transform.position += direction * movementSpeed * Time.deltaTime;
 
-    void RotateCharacter() {
-        // FAZER PRIMEIRO O MOVIMENTO RELATIVO Á DIREÇÂO DA CAMERA
-        // if (!Vector3.Equals(direction, Vector3.zero)) {
-        //     Quaternion targetRotation = Quaternion.LookRotation(direction);
-        //     Quaternion playerRotationOffset = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-        //     transform.rotation = playerRotationOffset;
-        // }
+            Quaternion rotationDirection = Quaternion.LookRotation(direction);
+            Quaternion rotationOffset = Quaternion.Slerp(transform.rotation, rotationDirection, rotationSpeed * Time.deltaTime);
+            transform.rotation = rotationOffset;
+        }
     }
 }
