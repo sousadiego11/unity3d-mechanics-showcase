@@ -6,7 +6,7 @@ public class Character : MonoBehaviour
 {
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float rotationSpeed = 15f;
-    [SerializeField] Rigidbody rb;
+    [SerializeField] Camera cam;
 
     Vector3 direction;
 
@@ -20,20 +20,23 @@ public class Character : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        direction = new Vector3(x, 0, z).normalized;
+        direction = new Vector3(x, 0, z);
     }
 
     void MoveCharacter() {
         if (!Vector3.Equals(direction, Vector3.zero)) {
-            rb.velocity = movementSpeed * direction;
+            Vector3 newDir = cam.transform.rotation * direction;
+            newDir.y = 0;
+            transform.Translate(movementSpeed * Time.deltaTime * newDir);
         }
     }
 
     void RotateCharacter() {
-        if (!Vector3.Equals(direction, Vector3.zero)) {
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            Quaternion playerRotationOffset = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-            transform.rotation = playerRotationOffset;
-        }
+        // FAZER PRIMEIRO O MOVIMENTO RELATIVO Á DIREÇÂO DA CAMERA
+        // if (!Vector3.Equals(direction, Vector3.zero)) {
+        //     Quaternion targetRotation = Quaternion.LookRotation(direction);
+        //     Quaternion playerRotationOffset = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        //     transform.rotation = playerRotationOffset;
+        // }
     }
 }
