@@ -51,12 +51,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turretHead: {fileID: 1637146996198101911}
   turretBase: {fileID: 7564717746460934743}
-  projectileToInstantiate: {fileID: 7521990365219539448, guid: 3a64cc8cfdad83d4185baf2e614a1048, type: 3}
   missilePlaceholder: {fileID: 5211844875841350602}
+  missilePrefab: {fileID: 915615041582235408, guid: 3a64cc8cfdad83d4185baf2e614a1048, type: 3}
   targetPointer: {fileID: 0}
   animator: {fileID: 556460973274901468}
   audioSource: {fileID: 2484961453501714099}
   reloadTime: 1
+  rotationSpeed: 515151
 --- !u!95 &556460973274901468
 Animator:
   serializedVersion: 5

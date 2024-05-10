@@ -5,14 +5,13 @@ using UnityEngine;
 public class Missile : MonoBehaviour
 {
     Vector3 targetPositionCache;
-    [SerializeField] GameObject effectToInstantiate;
+    [SerializeField] GameObject vfx;
     [SerializeField] float explosionPower;
     [SerializeField] float explosionRadius;
     [SerializeField] float travelVelocity;
     [SerializeField] float spinVelocity;
 
-    void Start() {
-        TargetPointer targetPointer = GameObject.FindGameObjectWithTag("Pointer").GetComponent<TargetPointer>();
+    public void Init(TargetPointer targetPointer) {
         targetPositionCache = targetPointer.targetPosition;
     }
 
@@ -25,7 +24,7 @@ public class Missile : MonoBehaviour
 
     void OnCollisionEnter(Collision other) {
         if (other.gameObject.CompareTag("Hittable")) {
-            Instantiate(effectToInstantiate, transform.position, Quaternion.identity);
+            Instantiate(vfx, transform.position, Quaternion.identity);
             foreach (Collider hitCollider in Physics.OverlapSphere(transform.position, 5)) {
                 bool foundRb = hitCollider.TryGetComponent(out Rigidbody rb);
                 if (foundRb) rb.AddExplosionForce(explosionPower, transform.position, explosionRadius);
