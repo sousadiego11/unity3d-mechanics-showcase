@@ -11,7 +11,7 @@ public class FollowCamera : MonoBehaviour
     float yawPos;
 
     void Update() {
-        pitchPos += Input.GetAxis("Mouse Y"); // Change to be a universal input, regardles of the mouse
+        pitchPos += Input.GetAxis("Mouse Y") * -1; // Change to be a universal input, regardles of the mouse
         pitchPos = Mathf.Clamp(pitchPos, -20f, 50f);
 
         yawPos += Input.GetAxis("Mouse X"); // Change to be a universal input, regardles of the mouse
