@@ -7,6 +7,7 @@ public class Character : MonoBehaviour
     [Header("[Movement]")]
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float rotationSpeed = 400f;
+    [SerializeField] [Range(1f, 2f)] float fallSpeed = 1f;
 
     [Header("[Dependencies]")]
     [SerializeField] Camera cam;
@@ -17,34 +18,51 @@ public class Character : MonoBehaviour
     [SerializeField] float groundedRadius;
     [SerializeField] Vector3 groundedOffset;
     [SerializeField] LayerMask groundLayer;
-    public bool isGrounded;
 
-    Vector3 direction;
+    public bool isGrounded;
+    Vector3 axisNormalizedDirection;
+    float fallAccumulatedForce;
+    float axisAbsDisplacement;
 
     void Update() {
+        CheckInputs();
         CheckGrounded();
+        CheckFallingSpeed();
         Move();
     }
 
     void Move() {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        Vector3 direction = cam.transform.rotation * axisNormalizedDirection;
+        direction.y = 0f;
 
-        float axisFactor = Mathf.Clamp01(Mathf.Abs(x) + Mathf.Abs(z));
-        Vector3 axisDirection = new Vector3(x, 0, z).normalized;
+        Vector3 movementMotion = movementSpeed * direction;
+        movementMotion.y = fallAccumulatedForce;
+        characterController.Move(movementMotion * Time.deltaTime);
 
-        direction = cam.transform.rotation * axisDirection;
-        direction.y = 0;
-
-        if (axisFactor > 0) {
-            characterController.Move(direction * movementSpeed * Time.deltaTime);
-
+        if (Mathf.Clamp01(axisAbsDisplacement) > 0) {
             Quaternion rotationDirection = Quaternion.LookRotation(direction);
             Quaternion rotationOffset = Quaternion.RotateTowards(transform.rotation, rotationDirection, rotationSpeed * Time.deltaTime);
             transform.rotation = rotationOffset;
         }
 
-        animator.SetFloat("AxisOffset", axisFactor, 0.2f, Time.deltaTime);
+        animator.SetFloat("AxisOffset", Mathf.Clamp01(axisAbsDisplacement), 0.2f, Time.deltaTime);
+    }
+
+    void CheckInputs() {
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        axisAbsDisplacement = Mathf.Abs(x) + Mathf.Abs(z);
+        axisNormalizedDirection = new Vector3(x, 0, z).normalized;
+
+    }
+
+    void CheckFallingSpeed() {
+        if (isGrounded) {
+            fallAccumulatedForce = -1f;
+        } else {
+            fallAccumulatedForce += Physics.gravity.y * fallSpeed * Time.deltaTime;
+        }
     }
 
     void CheckGrounded() {

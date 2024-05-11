@@ -8,7 +8,7 @@ public class MousePointer : MonoBehaviour
 {
     [SerializeField] LayerMask layerMaskTarget;
     [SerializeField] Camera cam;
-    public Vector3 targetPosition;
+    [HideInInspector] public Vector3 targetPosition;
     public bool isHiting = false;
 
     public void Raycast() {

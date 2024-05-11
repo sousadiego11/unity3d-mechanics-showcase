@@ -1472,7 +1472,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6845919755383740171}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.933359, y: -1.2512485, z: -0.06574461}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1499,6 +1499,12 @@ MonoBehaviour:
   cam: {fileID: 0}
   animator: {fileID: 64145461202515854}
   characterController: {fileID: 6027757195383657270}
+  groundedRadius: 0.15
+  groundedOffset: {x: 0, y: 0.1, z: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  isGrounded: 0
 --- !u!95 &64145461202515854
 Animator:
   serializedVersion: 5
@@ -1539,13 +1545,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
+  m_Height: 1.8
+  m_Radius: 0.2
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &6994540173000493773
 GameObject:
   m_ObjectHideFlags: 0
