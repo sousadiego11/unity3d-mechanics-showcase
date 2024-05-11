@@ -28,10 +28,11 @@ public class Character : MonoBehaviour
         CheckInputs();
         CheckGrounded();
         CheckFallingSpeed();
-        Move();
+        HandleMovement();
+        HandleAnimation();
     }
 
-    void Move() {
+    void HandleMovement() {
         Vector3 direction = cam.transform.rotation * axisNormalizedDirection;
         direction.y = 0f;
 
@@ -45,6 +46,10 @@ public class Character : MonoBehaviour
             transform.rotation = rotationOffset;
         }
 
+    }
+
+    void HandleAnimation() {
+        animator.SetBool("isFalling", !isGrounded);
         animator.SetFloat("AxisOffset", Mathf.Clamp01(axisAbsDisplacement), 0.2f, Time.deltaTime);
     }
 

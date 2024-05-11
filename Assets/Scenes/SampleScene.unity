@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 420471716}
   - component: {fileID: 420471715}
   - component: {fileID: 420471714}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall (5)
   m_TagString: Hittable
   m_Icon: {fileID: 0}
@@ -1006,7 +1006,7 @@ GameObject:
   - component: {fileID: 855096280}
   - component: {fileID: 855096279}
   - component: {fileID: 855096278}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Hittable
   m_Icon: {fileID: 0}
@@ -1203,7 +1203,7 @@ GameObject:
   - component: {fileID: 1251929118}
   - component: {fileID: 1251929117}
   - component: {fileID: 1251929116}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Hittable
   m_Icon: {fileID: 0}
@@ -1538,7 +1538,7 @@ GameObject:
   - component: {fileID: 1781601421}
   - component: {fileID: 1781601420}
   - component: {fileID: 1781601419}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall (3)
   m_TagString: Hittable
   m_Icon: {fileID: 0}
@@ -1715,7 +1715,7 @@ GameObject:
   - component: {fileID: 1924588152}
   - component: {fileID: 1924588151}
   - component: {fileID: 1924588150}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall (4)
   m_TagString: Hittable
   m_Icon: {fileID: 0}
@@ -2039,8 +2039,12 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
+      propertyPath: groundedRadius
+      value: 0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
       propertyPath: groundLayer.m_Bits
-      value: 385
+      value: 384
       objectReference: {fileID: 0}
     - target: {fileID: 6027757195383657270, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
       propertyPath: m_Center.y
