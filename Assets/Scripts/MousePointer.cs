@@ -4,18 +4,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class TargetPointer : MonoBehaviour
+public class MousePointer : MonoBehaviour
 {
     [SerializeField] LayerMask layerMaskTarget;
     [SerializeField] Camera cam;
     public Vector3 targetPosition;
     public bool isHiting = false;
 
-    void Update() {
-        RaycastMouseDir();
-    }
-
-    void RaycastMouseDir() {
+    public void Raycast() {
         Vector3 mouseScreenPos = Input.mousePosition; // Position with x and z relative to the camera view
         Vector3 mouseScreenPosWithDistance = new(mouseScreenPos.x, mouseScreenPos.y, cam.farClipPlane); // Position with the distance set to the camera far
         Vector3 mouseWorldPoint = cam.ScreenToWorldPoint(mouseScreenPosWithDistance); // Final world x,y and z coords

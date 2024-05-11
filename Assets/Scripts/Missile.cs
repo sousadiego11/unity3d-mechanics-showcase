@@ -11,8 +11,8 @@ public class Missile : MonoBehaviour
     [SerializeField] float travelVelocity;
     [SerializeField] float spinVelocity;
 
-    public void Init(TargetPointer targetPointer) {
-        targetPositionCache = targetPointer.targetPosition;
+    public void Init(Vector3 targetPosition) {
+        targetPositionCache = targetPosition;
     }
 
     void Update() {

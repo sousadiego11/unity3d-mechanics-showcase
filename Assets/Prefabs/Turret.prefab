@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8020305784993228794}
@@ -53,11 +53,10 @@ MonoBehaviour:
   turretBase: {fileID: 7564717746460934743}
   missilePlaceholder: {fileID: 5211844875841350602}
   missilePrefab: {fileID: 915615041582235408, guid: 3a64cc8cfdad83d4185baf2e614a1048, type: 3}
-  targetPointer: {fileID: 0}
+  mousePointer: {fileID: 0}
   animator: {fileID: 556460973274901468}
   audioSource: {fileID: 2484961453501714099}
   reloadTime: 1
-  rotationSpeed: 515151
 --- !u!95 &556460973274901468
 Animator:
   serializedVersion: 5

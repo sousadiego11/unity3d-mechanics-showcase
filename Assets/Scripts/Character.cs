@@ -26,7 +26,7 @@ public class Character : MonoBehaviour
             transform.Translate(direction * movementSpeed * Time.deltaTime, Space.World);
 
             Quaternion rotationDirection = Quaternion.LookRotation(direction);
-            Quaternion rotationOffset = Quaternion.Slerp(transform.rotation, rotationDirection, rotationSpeed * Time.deltaTime);
+            Quaternion rotationOffset = Quaternion.RotateTowards(transform.rotation, rotationDirection, rotationSpeed * Time.deltaTime);
             transform.rotation = rotationOffset;
         }
     }

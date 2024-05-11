@@ -6,8 +6,6 @@ public class FollowCamera : MonoBehaviour
 {
     [SerializeField] GameObject target;
     [SerializeField] Vector3 positionOffset;
-    [SerializeField] float verticalSensitivity = 1;
-    [SerializeField] float horizontalSensitivity = 1;
 
     float pitchPos;
     float yawPos;

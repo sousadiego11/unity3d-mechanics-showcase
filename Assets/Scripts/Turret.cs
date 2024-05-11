@@ -11,21 +11,22 @@ public class Turret : MonoBehaviour
     [SerializeField] GameObject turretBase;
     [SerializeField] GameObject missilePlaceholder;
     [SerializeField] Missile missilePrefab;
-    [SerializeField] TargetPointer targetPointer;
+    [SerializeField] MousePointer mousePointer;
     [SerializeField] Animator animator;
     [SerializeField] AudioSource audioSource;
     [SerializeField] float reloadTime;
     bool reloading = false;
 
     void Update() {
+        mousePointer.Raycast();
         Move();
         HandleShoot();
     }
  
     // Not using LookRotation was intended since the goal was to understand how to know the Vertical and Horizontal angles
     void Move() {
-        if (targetPointer.isHiting) {
-            Vector3 direction = targetPointer.targetPosition - turretHead.transform.position;
+        if (mousePointer.isHiting) {
+            Vector3 direction = mousePointer.targetPosition - turretHead.transform.position;
             Debug.DrawRay(missilePlaceholder.transform.position, direction, Color.cyan);
 
             float verticalAngle = Mathf.Asin(direction.y / direction.magnitude) * Mathf.Rad2Deg * -1;
@@ -43,7 +44,7 @@ public class Turret : MonoBehaviour
     }
 
     void HandleShoot() {
-        if (Input.GetMouseButtonDown(0) && targetPointer.isHiting && !reloading) {
+        if (Input.GetMouseButtonDown(0) && mousePointer.isHiting && !reloading) {
             Shoot();
         }
     }
@@ -51,7 +52,7 @@ public class Turret : MonoBehaviour
     void Shoot() {
         audioSource.Play();
         Missile missile = Instantiate(missilePrefab, missilePlaceholder.transform.position, missilePlaceholder.transform.rotation);
-        missile.Init(targetPointer);
+        missile.Init(mousePointer.targetPosition);
         StartCoroutine(ReloadTimer());
     }
 
