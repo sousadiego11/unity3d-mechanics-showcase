@@ -5,11 +5,15 @@ using UnityEngine;
 public class Missile : MonoBehaviour
 {
     Vector3 targetPositionCache;
+    
+    [Header("[FX]")]
     [SerializeField] GameObject vfx;
+    [Header("[Explosion]")]
     [SerializeField] float explosionPower;
     [SerializeField] float explosionRadius;
-    [SerializeField] float travelVelocity;
-    [SerializeField] float spinVelocity;
+    [Header("[Speed]")]
+    [SerializeField] float travelSpeed;
+    [SerializeField] float spinSpeed;
 
     public void Init(Vector3 targetPosition) {
         targetPositionCache = targetPosition;
@@ -18,8 +22,8 @@ public class Missile : MonoBehaviour
     void Update() {
         Debug.DrawRay(transform.position, targetPositionCache - transform.position, Color.magenta);
         Vector3 direction = (targetPositionCache - transform.position).normalized;
-        transform.Rotate(spinVelocity * Time.deltaTime * Vector3.forward, Space.Self);
-        transform.Translate(travelVelocity * Time.deltaTime * direction, Space.World);
+        transform.Rotate(spinSpeed * Time.deltaTime * Vector3.forward, Space.Self);
+        transform.Translate(travelSpeed * Time.deltaTime * direction, Space.World);
     }
 
     void OnCollisionEnter(Collision other) {

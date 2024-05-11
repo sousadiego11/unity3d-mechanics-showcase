@@ -7,13 +7,16 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
+    [Header("[Parts]")]
     [SerializeField] GameObject turretHead;
     [SerializeField] GameObject turretBase;
     [SerializeField] GameObject missilePlaceholder;
+    [Header("[Depedencies]")]
     [SerializeField] Missile missilePrefab;
     [SerializeField] MousePointer mousePointer;
     [SerializeField] Animator animator;
     [SerializeField] AudioSource audioSource;
+    [Header("[Fire]")]
     [SerializeField] float reloadTime;
     bool reloading = false;
 
