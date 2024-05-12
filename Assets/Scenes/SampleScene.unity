@@ -2032,7 +2032,7 @@ PrefabInstance:
       objectReference: {fileID: 370034117}
     - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
       propertyPath: fallSpeed
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
       propertyPath: acceleration

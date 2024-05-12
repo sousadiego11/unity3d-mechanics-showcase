@@ -35,8 +35,7 @@ public class Character : MonoBehaviour
     float axisAbsDisplacement;
 
     void Update() {
-        CheckInputs();
-        CheckIsMoving();
+        CheckMovementInteraction();
         CheckGrounded();
         CheckFallingSpeed();
         CheckCurrentSpeed();
@@ -66,13 +65,13 @@ public class Character : MonoBehaviour
         animator.SetFloat("Velocity", velocity);
     }
 
-    void CheckInputs() {
+    void CheckMovementInteraction() {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        axisAbsDisplacement = Mathf.Abs(x) + Mathf.Abs(z);
         axisNormalizedDirection = new Vector3(x, 0, z).normalized;
-
+        axisAbsDisplacement = Mathf.Abs(axisNormalizedDirection.x) + Mathf.Abs(axisNormalizedDirection.z);
+        isMoving = Mathf.Clamp01(axisAbsDisplacement) > 0;
     }
 
     void CheckCurrentSpeed() {
@@ -98,16 +97,21 @@ public class Character : MonoBehaviour
         isFalling = Mathf.Abs(fallingMagnitude) > 1;
     }
 
-    void CheckIsMoving() {
-        isMoving = Mathf.Clamp01(axisAbsDisplacement) > 0;
-    }
-
     void CheckGrounded() {
         isGrounded = Physics.CheckSphere(transform.TransformPoint(groundedOffset), groundedRadius, groundLayer);
+    }
+
+    void CheckDirectionCanceling(Vector3 previousDir, Vector3 newDir, bool isMoving) {
+        Debug.Log("previousDir: " + previousDir);
+        Debug.Log("newDir: " + newDir);
+        if (Vector3.Dot(previousDir, newDir) == -1 && isMoving) {
+            velocity = 0f;
+        }
     }
 
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(transform.TransformPoint(groundedOffset), groundedRadius);
     }
+
 }
