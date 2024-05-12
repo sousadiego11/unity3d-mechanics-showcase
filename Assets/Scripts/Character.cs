@@ -1,13 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class Character : MonoBehaviour
 {
     [Header("[Movement]")]
-    [SerializeField] float movementSpeed = 5f;
+    [SerializeField] float maximumSpeed = 5f;
+    [SerializeField] [Range(1, 5)] float acceleration = 1f;
+    [SerializeField] [Range(1, 5)] float deceleration = 1f;
     [SerializeField] float rotationSpeed = 400f;
-    [SerializeField] [Range(1f, 2f)] float fallSpeed = 1f;
+    [SerializeField] [Range(1f, 5f)] float fallSpeed = 1f;
 
     [Header("[Dependencies]")]
     [SerializeField] Camera cam;
@@ -20,14 +24,19 @@ public class Character : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
 
     public bool isGrounded;
+    public bool isMoving;
+    public bool isFalling;
     Vector3 axisNormalizedDirection;
-    float fallAccumulatedForce;
+    [SerializeField] float fallingMagnitude;
+    [SerializeField] float velocity = 1f;
     float axisAbsDisplacement;
 
     void Update() {
         CheckInputs();
+        CheckIsMoving();
         CheckGrounded();
         CheckFallingSpeed();
+        CheckCurrentSpeed();
         HandleMovement();
         HandleAnimation();
     }
@@ -36,11 +45,11 @@ public class Character : MonoBehaviour
         Vector3 direction = cam.transform.rotation * axisNormalizedDirection;
         direction.y = 0f;
 
-        Vector3 movementMotion = movementSpeed * direction;
-        movementMotion.y = fallAccumulatedForce;
+        Vector3 movementMotion = velocity * direction;
+        movementMotion.y = fallingMagnitude;
         characterController.Move(movementMotion * Time.deltaTime);
 
-        if (Mathf.Clamp01(axisAbsDisplacement) > 0) {
+        if (isMoving) {
             Quaternion rotationDirection = Quaternion.LookRotation(direction);
             Quaternion rotationOffset = Quaternion.RotateTowards(transform.rotation, rotationDirection, rotationSpeed * Time.deltaTime);
             transform.rotation = rotationOffset;
@@ -50,7 +59,8 @@ public class Character : MonoBehaviour
 
     void HandleAnimation() {
         animator.SetBool("isFalling", !isGrounded);
-        animator.SetFloat("AxisOffset", Mathf.Clamp01(axisAbsDisplacement), 0.2f, Time.deltaTime);
+        animator.SetBool("isGrounded", isGrounded);
+        animator.SetFloat("Velocity", velocity);
     }
 
     void CheckInputs() {
@@ -62,12 +72,31 @@ public class Character : MonoBehaviour
 
     }
 
+    void CheckCurrentSpeed() {
+        float newSpeed;
+        
+        if (isFalling) {
+            newSpeed = velocity - Mathf.Abs(fallingMagnitude) * fallSpeed * Time.deltaTime;
+        } else if (isMoving) {
+            newSpeed = velocity + acceleration * Time.deltaTime;
+        } else {
+            newSpeed = velocity - deceleration * Time.deltaTime;
+        }
+        velocity = Mathf.Clamp(newSpeed, 0, maximumSpeed);
+    }
+
     void CheckFallingSpeed() {
         if (isGrounded) {
-            fallAccumulatedForce = -1f;
+            fallingMagnitude = -1f;
         } else {
-            fallAccumulatedForce += Physics.gravity.y * fallSpeed * Time.deltaTime;
+            fallingMagnitude += Physics.gravity.y * fallSpeed * Time.deltaTime;
         }
+
+        isFalling = Mathf.Abs(fallingMagnitude) > 1;
+    }
+
+    void CheckIsMoving() {
+        isMoving = Mathf.Clamp01(axisAbsDisplacement) > 0;
     }
 
     void CheckGrounded() {

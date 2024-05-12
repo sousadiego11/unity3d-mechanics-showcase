@@ -2032,7 +2032,15 @@ PrefabInstance:
       objectReference: {fileID: 370034117}
     - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
       propertyPath: fallSpeed
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
+      propertyPath: acceleration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
+      propertyPath: deceleration
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
       propertyPath: movementSpeed
@@ -2045,6 +2053,14 @@ PrefabInstance:
     - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 384
+      objectReference: {fileID: 0}
+    - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
+      propertyPath: fallIncrementMultiplier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
+      propertyPath: speedIncrementMultiplier
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6027757195383657270, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
       propertyPath: m_Center.y
@@ -2117,7 +2133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 888348617735421614, guid: 88ab1bba283513843b93c2d9c9f7432c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 888348617735421614, guid: 88ab1bba283513843b93c2d9c9f7432c, type: 3}
       propertyPath: m_PlayOnAwake
