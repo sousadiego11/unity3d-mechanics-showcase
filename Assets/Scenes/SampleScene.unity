@@ -2036,11 +2036,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
       propertyPath: acceleration
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
       propertyPath: deceleration
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5570782569555364305, guid: 4d9495d2a3e946d4b96743236c356c99, type: 3}
       propertyPath: movementSpeed

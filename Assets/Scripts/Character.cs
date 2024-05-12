@@ -8,8 +8,8 @@ public class Character : MonoBehaviour
 {
     [Header("[Movement]")]
     [SerializeField] float maximumSpeed = 5f;
-    [SerializeField] [Range(1, 5)] float acceleration = 1f;
-    [SerializeField] [Range(1, 5)] float deceleration = 1f;
+    [SerializeField] [Range(1f, 10f)] float acceleration = 1f;
+    [SerializeField] [Range(1f, 10f)] float deceleration = 1f;
     [SerializeField] float rotationSpeed = 400f;
     [SerializeField] [Range(1f, 5f)] float fallSpeed = 1f;
 
@@ -23,12 +23,15 @@ public class Character : MonoBehaviour
     [SerializeField] Vector3 groundedOffset;
     [SerializeField] LayerMask groundLayer;
 
+
+    [Header("[State]")]
     public bool isGrounded;
     public bool isMoving;
     public bool isFalling;
+    public float fallingMagnitude;
+    public float velocity = 1f;
+
     Vector3 axisNormalizedDirection;
-    [SerializeField] float fallingMagnitude;
-    [SerializeField] float velocity = 1f;
     float axisAbsDisplacement;
 
     void Update() {
