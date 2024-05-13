@@ -68,10 +68,13 @@ public class Character : MonoBehaviour
     void CheckMovementInteraction() {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
-
-        axisNormalizedDirection = new Vector3(x, 0, z).normalized;
-        axisAbsDisplacement = Mathf.Abs(axisNormalizedDirection.x) + Mathf.Abs(axisNormalizedDirection.z);
+        Vector3 newDir = new Vector3(x, 0, z).normalized;
+        axisAbsDisplacement = Mathf.Abs(newDir.x) + Mathf.Abs(newDir.z);
         isMoving = Mathf.Clamp01(axisAbsDisplacement) > 0;
+        
+        CheckDirectionCanceling(axisNormalizedDirection, newDir, isMoving);
+
+        axisNormalizedDirection = newDir;
     }
 
     void CheckCurrentSpeed() {
@@ -102,9 +105,10 @@ public class Character : MonoBehaviour
     }
 
     void CheckDirectionCanceling(Vector3 previousDir, Vector3 newDir, bool isMoving) {
-        Debug.Log("previousDir: " + previousDir);
-        Debug.Log("newDir: " + newDir);
-        if (Vector3.Dot(previousDir, newDir) == -1 && isMoving) {
+        Vector3 roundedPrev = Vector3Int.RoundToInt(previousDir);
+        Vector3 roundedNew = Vector3Int.RoundToInt(newDir);
+        
+        if (Vector3.Dot(roundedPrev, roundedNew) == -1 && isMoving) {
             velocity = 0f;
         }
     }

@@ -2133,7 +2133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 888348617735421614, guid: 88ab1bba283513843b93c2d9c9f7432c, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 888348617735421614, guid: 88ab1bba283513843b93c2d9c9f7432c, type: 3}
       propertyPath: m_PlayOnAwake
@@ -2143,6 +2143,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1402993760}
+    - target: {fileID: 3546242997592134217, guid: 88ab1bba283513843b93c2d9c9f7432c, type: 3}
+      propertyPath: layerMaskTarget.m_Bits
+      value: 435
+      objectReference: {fileID: 0}
     - target: {fileID: 5630286613400538824, guid: 88ab1bba283513843b93c2d9c9f7432c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.933359
