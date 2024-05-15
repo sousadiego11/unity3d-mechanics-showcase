@@ -5,17 +5,16 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class TurretController : MonoBehaviour
 {
     [Header("[Parts]")]
     [SerializeField] GameObject turretHead;
     [SerializeField] GameObject turretBase;
     [SerializeField] GameObject missilePlaceholder;
     [Header("[Depedencies]")]
-    [SerializeField] Missile missilePrefab;
+    [SerializeField] MissileController missilePrefab;
     [SerializeField] MousePointer mousePointer;
     [SerializeField] Animator animator;
-    [SerializeField] AudioSource audioSource;
     [Header("[Fire]")]
     [SerializeField] float reloadTime;
     bool reloading = false;
@@ -53,8 +52,8 @@ public class Turret : MonoBehaviour
     }
 
     void Shoot() {
-        audioSource.Play();
-        Missile missile = Instantiate(missilePrefab, missilePlaceholder.transform.position, missilePlaceholder.transform.rotation);
+        SoundBoard.Instance.PlayOne(Audio.AudioEnum.TurretShootSFX, 1f);
+        MissileController missile = Instantiate(missilePrefab, missilePlaceholder.transform.position, missilePlaceholder.transform.rotation);
         missile.Init(mousePointer.targetPosition);
         StartCoroutine(ReloadTimer());
     }

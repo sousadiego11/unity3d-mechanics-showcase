@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Missile : MonoBehaviour
+public class MissileController : MonoBehaviour
 {
     Vector3 targetPositionCache;
     
@@ -17,6 +17,7 @@ public class Missile : MonoBehaviour
 
     public void Init(Vector3 targetPosition) {
         targetPositionCache = targetPosition;
+        SoundBoard.Instance.PlayOne(Audio.AudioEnum.MissileMoveSFX, 0.2f);
     }
 
     void Update() {
@@ -29,6 +30,7 @@ public class Missile : MonoBehaviour
     void OnCollisionEnter(Collision other) {
         if (other.gameObject.CompareTag("Hittable")) {
             Instantiate(vfx, transform.position, Quaternion.identity);
+            SoundBoard.Instance.PlayOne(Audio.AudioEnum.MissileHitSFX, 1);
             foreach (Collider hitCollider in Physics.OverlapSphere(transform.position, 5)) {
                 bool foundRb = hitCollider.TryGetComponent(out Rigidbody rb);
                 if (foundRb) rb.AddExplosionForce(explosionPower, transform.position, explosionRadius);

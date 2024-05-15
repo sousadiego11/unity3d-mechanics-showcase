@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Header("[Movement]")]
     [SerializeField] float maximumSpeed = 5f;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowCamera : MonoBehaviour
+public class CameraFollowController : MonoBehaviour
 {
     [SerializeField] GameObject target;
     [SerializeField] Vector3 positionOffset;
