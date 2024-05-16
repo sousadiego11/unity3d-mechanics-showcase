@@ -17,10 +17,10 @@ TagManager:
   - Turret
   - Hittable
   - Ground
-  - 
-  - 
-  - 
-  - 
+  - Model
+  - UI
+  - ViewTurret
+  - ViewPlayer
   - 
   - 
   - 
