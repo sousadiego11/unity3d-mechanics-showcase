@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Mechanic
 {
     [Header("[Movement]")]
     [SerializeField] float maximumSpeed = 5f;
@@ -32,10 +32,13 @@ public class PlayerController : MonoBehaviour
     public float velocity = 1f;
 
     Vector3 axisNormalizedDirection;
-    float axisAbsDisplacement;
 
     void Update() {
-        CheckMovementInteraction();
+        if (Locked()) {
+            HandleLockMovement();
+        } else {
+            CheckMovementInteraction();
+        }
         CheckGrounded();
         CheckFallingSpeed();
         CheckCurrentSpeed();
@@ -65,11 +68,16 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Velocity", velocity);
     }
 
+    void HandleLockMovement() {
+        axisNormalizedDirection = Vector3.zero;
+        isMoving = false;
+    }
+
     void CheckMovementInteraction() {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         Vector3 newDir = new Vector3(x, 0, z).normalized;
-        axisAbsDisplacement = Mathf.Abs(newDir.x) + Mathf.Abs(newDir.z);
+        float axisAbsDisplacement = Mathf.Abs(newDir.x) + Mathf.Abs(newDir.z);
         isMoving = Mathf.Clamp01(axisAbsDisplacement) > 0;
         
         CheckDirectionCanceling(axisNormalizedDirection, newDir, isMoving);

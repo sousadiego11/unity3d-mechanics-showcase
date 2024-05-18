@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-public class TurretController : MonoBehaviour
+public class TurretController : Mechanic
 {
     [Header("[Parts]")]
     [SerializeField] GameObject turretHead;
@@ -20,6 +20,7 @@ public class TurretController : MonoBehaviour
     bool reloading = false;
 
     void Update() {
+        if (Locked()) return;
         mousePointer.Raycast();
         Move();
         HandleShoot();
