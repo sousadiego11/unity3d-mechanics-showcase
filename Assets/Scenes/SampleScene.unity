@@ -2216,7 +2216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c392fe06e266d646b2d212a72d90aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mechanic: {fileID: 1256121405}
+  mechanic: {fileID: 1584801736}
   toDisable:
   - {fileID: 1420221651}
 --- !u!1 &826369019
@@ -3404,17 +3404,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4242418185348515143, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
   m_PrefabInstance: {fileID: 1396696751}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1256121405 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 195324823227178733, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
-  m_PrefabInstance: {fileID: 1396696751}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e44b10a73c94e3478d1f70c5f678384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1278686276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3423,6 +3412,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1669684891}
     m_Modifications:
+    - target: {fileID: 387845583925696305, guid: 58c8a8ebbd9a63b44be66af33ee3993d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1618664794044156157, guid: 58c8a8ebbd9a63b44be66af33ee3993d, type: 3}
       propertyPath: m_Name
       value: Turret
@@ -3474,6 +3467,10 @@ PrefabInstance:
     - target: {fileID: 1821477325740114276, guid: 58c8a8ebbd9a63b44be66af33ee3993d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654428544726647906, guid: 58c8a8ebbd9a63b44be66af33ee3993d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3651,6 +3648,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1669684891}
     m_Modifications:
+    - target: {fileID: 66545744825201377, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2239411791044763013, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2646813052319802225, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 2646813052319802225, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838613354673423054, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4242418185348515143, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3690,6 +3707,10 @@ PrefabInstance:
     - target: {fileID: 4242418185348515143, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778241272809899663, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7834902510563091221, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
       propertyPath: m_Name
@@ -3949,6 +3970,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1885026803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1584801736 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 195324823227178733, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
+  m_PrefabInstance: {fileID: 1396696751}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e44b10a73c94e3478d1f70c5f678384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1630574827
 GameObject:
   m_ObjectHideFlags: 0
@@ -4661,7 +4693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mechanic: {fileID: 1420221651}
   toDisable:
-  - {fileID: 1256121405}
+  - {fileID: 1584801736}
 --- !u!1 &1885026802
 GameObject:
   m_ObjectHideFlags: 0
