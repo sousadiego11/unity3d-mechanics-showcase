@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2404093391571808281}
   - component: {fileID: 6237978876090021702}
   - component: {fileID: 1754670839004490878}
-  - component: {fileID: 60169610747544298}
+  - component: {fileID: 650954629598791816}
   m_Layer: 2
   m_Name: Head
   m_TagString: Untagged
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &60169610747544298
-SphereCollider:
+--- !u!65 &650954629598791816
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -101,10 +101,10 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.9890957, y: 1.9929816, z: 1.1079583}
+  m_Center: {x: -0.019966956, y: 0.00041276548, z: -0.016005281}
 --- !u!1 &7264328283523214957
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +220,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2366326708411844569}
   - component: {fileID: 915615041582235408}
-  - component: {fileID: 7367517391326923462}
   - component: {fileID: -1093032418205608449}
   m_Layer: 2
   m_Name: Missile
@@ -268,27 +267,6 @@ MonoBehaviour:
   explosionRadius: 2
   travelSpeed: 20
   spinSpeed: 5
---- !u!65 &7367517391326923462
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7521990365219539448}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.83009785, y: 0.95129937, z: 1.1980114}
-  m_Center: {x: 0.052099638, y: -0.01317136, z: 1.9477971}
 --- !u!54 &-1093032418205608449
 Rigidbody:
   m_ObjectHideFlags: 0
