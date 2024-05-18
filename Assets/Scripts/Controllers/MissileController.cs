@@ -29,13 +29,13 @@ public class MissileController : MonoBehaviour
 
     void OnCollisionEnter(Collision other) {
         if (other.gameObject.CompareTag("Hittable")) {
+            Destroy(gameObject);
             Instantiate(vfx, transform.position, Quaternion.identity);
             SoundBoard.Instance.PlayOne(Audio.AudioEnum.MissileHitSFX, 1);
             foreach (Collider hitCollider in Physics.OverlapSphere(transform.position, 5)) {
                 bool foundRb = hitCollider.TryGetComponent(out Rigidbody rb);
                 if (foundRb) rb.AddExplosionForce(explosionPower, transform.position, explosionRadius);
             }
-            Destroy(gameObject);
         }
     }
 }
