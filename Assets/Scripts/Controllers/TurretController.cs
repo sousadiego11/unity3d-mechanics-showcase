@@ -18,7 +18,16 @@ public class TurretController : Mechanic
     [Header("[Fire]")]
     [SerializeField] float reloadTime;
     bool reloading = false;
+    LineRenderer lineRenderer;
 
+    void Start() {
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.startWidth = 0.04f;
+        lineRenderer.endWidth = 0.04f;
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.startColor = Color.cyan;
+        lineRenderer.endColor = Color.cyan;   
+    }
     void Update() {
         if (Locked()) return;
         mousePointer.Raycast();
@@ -31,6 +40,8 @@ public class TurretController : Mechanic
         if (mousePointer.isHiting) {
             Vector3 direction = mousePointer.targetPosition - turretHead.transform.position;
             Debug.DrawRay(missilePlaceholder.transform.position, direction, Color.cyan);
+            lineRenderer.SetPosition(0, missilePlaceholder.transform.position);
+            lineRenderer.SetPosition(1, mousePointer.targetPosition);
 
             float verticalAngle = Mathf.Asin(direction.y / direction.magnitude) * Mathf.Rad2Deg * -1;
             
