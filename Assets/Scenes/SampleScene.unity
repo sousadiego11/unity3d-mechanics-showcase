@@ -3653,6 +3653,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2239411791044763013, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
+      propertyPath: groundedOffset.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2239411791044763013, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
       propertyPath: playerMovements.Array.data[1].deceleration
       value: 15
       objectReference: {fileID: 0}
@@ -3669,6 +3673,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2838613354673423054, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879014217597248460, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
