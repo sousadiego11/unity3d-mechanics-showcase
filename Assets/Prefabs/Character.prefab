@@ -946,8 +946,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dfeb3bb5f1bbb440bc243ec935bf1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2879014217597248460}
-  positionOffset: {x: 0, y: -1.5, z: 3.2}
+  player: {fileID: 2239411791044763013}
+  properties:
+  - offset: {x: 0, y: -1.5, z: 3.2}
+    identifier: 0
+  - offset: {x: 0, y: -1.5, z: 4}
+    identifier: 1
+  - offset: {x: -0.4, y: -1.5, z: 1.4}
+    identifier: 2
 --- !u!1 &2871885067984909325
 GameObject:
   m_ObjectHideFlags: 0
@@ -1029,12 +1035,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d95205121e5c70f4495713741cbd7126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumSpeed: 5
-  acceleration: 8
-  deceleration: 10
-  rotationSpeed: 500
-  fallSpeed: 5
-  cam: {fileID: 66545744825201377}
+  playerMovements:
+  - maximumSpeed: 5
+    acceleration: 5
+    deceleration: 10
+    rotationSpeed: 400
+    fallSpeed: 10
+    identifier: 0
+  - maximumSpeed: 10
+    acceleration: 15
+    deceleration: 10
+    rotationSpeed: 400
+    fallSpeed: 10
+    identifier: 1
+  - maximumSpeed: 2
+    acceleration: 2
+    deceleration: 10
+    rotationSpeed: 400
+    fallSpeed: 10
+    identifier: 2
+  cam: {fileID: 5778241272809899663}
   animator: {fileID: 5313629466424154037}
   characterController: {fileID: 5672505729541620431}
   groundedRadius: 0.22
@@ -1043,10 +1063,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   isGrounded: 0
-  isMoving: 0
   isFalling: 0
   fallingMagnitude: 0
   velocity: 1
+  isMoving: 0
+  isRunning: 0
+  isAiming: 0
 --- !u!95 &5313629466424154037
 Animator:
   serializedVersion: 5

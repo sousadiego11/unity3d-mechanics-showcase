@@ -1,11 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollowController : Mechanic
 {
-    [SerializeField] GameObject target;
-    [SerializeField] Vector3 positionOffset;
+    [SerializeField] PlayerController player;
+    [SerializeField] List<CameraFollowProps> properties;
 
     float pitchPos;
     float yawPos;
@@ -19,9 +20,19 @@ public class CameraFollowController : Mechanic
         }
         
         Quaternion rotationMatrix = Quaternion.Euler(pitchPos, yawPos, 0f);
-        Vector3 newPositionOffset = Vector3.forward * positionOffset.z + Vector3.up * positionOffset.y + Vector3.right * positionOffset.x;
-        Vector3 newPosition = target.transform.position - rotationMatrix * newPositionOffset;
+        Vector3 newPositionOffset = Vector3.forward * GetPropertiesStrategy().offset.z + Vector3.up * GetPropertiesStrategy().offset.y + Vector3.right * GetPropertiesStrategy().offset.x;
+        Vector3 newPosition = player.transform.position - rotationMatrix * newPositionOffset;
 
-        transform.SetPositionAndRotation(newPosition, rotationMatrix); 
+        transform.SetPositionAndRotation(newPosition, rotationMatrix);
+    }
+
+    CameraFollowProps GetPropertiesStrategy() {
+        if (player.isRunning) {
+            return properties.Find(m => m.identifier == CameraFollowProps.NameEnum.Running);
+        } else if (player.isAiming) {
+            return properties.Find(m => m.identifier == CameraFollowProps.NameEnum.Aiming);
+        } else {
+            return properties.Find(m => m.identifier == CameraFollowProps.NameEnum.Default);
+        }
     }
 }

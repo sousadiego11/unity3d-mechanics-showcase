@@ -7,29 +7,27 @@ using UnityEngine;
 public class PlayerController : Mechanic
 {
     [Header("[Movement]")]
-    [SerializeField] float maximumSpeed = 5f;
-    [SerializeField] [Range(1f, 10f)] float acceleration = 1f;
-    [SerializeField] [Range(1f, 10f)] float deceleration = 1f;
-    [SerializeField] float rotationSpeed = 400f;
-    [SerializeField] [Range(1f, 5f)] float fallSpeed = 1f;
+    [SerializeField] private List<PlayerMovement> playerMovements;
 
     [Header("[Dependencies]")]
-    [SerializeField] Camera cam;
-    [SerializeField] Animator animator;
-    [SerializeField] CharacterController characterController;
+    [SerializeField] private  CameraFollowController cam;
+    [SerializeField] private  Animator animator;
+    [SerializeField] private  CharacterController characterController;
 
     [Header("[Ground Check]")]
-    [SerializeField] float groundedRadius;
-    [SerializeField] Vector3 groundedOffset;
-    [SerializeField] LayerMask groundLayer;
+    [SerializeField] private  float groundedRadius;
+    [SerializeField] private  Vector3 groundedOffset;
+    [SerializeField] private  LayerMask groundLayer;
 
 
     [Header("[State]")]
-    public bool isGrounded;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private bool isFalling;
+    [SerializeField] private float fallingMagnitude;
+    [SerializeField] private float velocity = 1f;
     public bool isMoving;
-    public bool isFalling;
-    public float fallingMagnitude;
-    public float velocity = 1f;
+    public bool isRunning;
+    public bool isAiming;
 
     Vector3 axisNormalizedDirection;
 
@@ -37,13 +35,23 @@ public class PlayerController : Mechanic
         if (Locked()) {
             HandleLockMovement();
         } else {
-            CheckMovementInteraction();
+            CheckInteractions();
         }
         CheckGrounded();
         CheckFallingSpeed();
         CheckCurrentSpeed();
         HandleMovement();
         HandleAnimation();
+    }
+
+    PlayerMovement GetMovementStrategy() {
+        if (isRunning) {
+            return playerMovements.Find(m => m.identifier == PlayerMovement.NameEnum.Running);
+        } else if (isAiming) {
+            return playerMovements.Find(m => m.identifier == PlayerMovement.NameEnum.Aiming);
+        } else {
+            return playerMovements.Find(m => m.identifier == PlayerMovement.NameEnum.Default);
+        }
     }
 
     void HandleMovement() {
@@ -56,7 +64,7 @@ public class PlayerController : Mechanic
 
         if (isMoving) {
             Quaternion rotationDirection = Quaternion.LookRotation(direction);
-            Quaternion rotationOffset = Quaternion.RotateTowards(transform.rotation, rotationDirection, rotationSpeed * Time.deltaTime);
+            Quaternion rotationOffset = Quaternion.RotateTowards(transform.rotation, rotationDirection, GetMovementStrategy().rotationSpeed * Time.deltaTime);
             transform.rotation = rotationOffset;
         }
 
@@ -71,38 +79,42 @@ public class PlayerController : Mechanic
     void HandleLockMovement() {
         axisNormalizedDirection = Vector3.zero;
         isMoving = false;
+        isAiming = false;
+        isRunning = false;
     }
 
-    void CheckMovementInteraction() {
+    void CheckInteractions() {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
-        Vector3 newDir = new Vector3(x, 0, z).normalized;
-        float axisAbsDisplacement = Mathf.Abs(newDir.x) + Mathf.Abs(newDir.z);
-        isMoving = Mathf.Clamp01(axisAbsDisplacement) > 0;
-        
-        CheckDirectionCanceling(axisNormalizedDirection, newDir, isMoving);
+        bool aiming = Input.GetMouseButton(1);
+        bool running = Input.GetKey(KeyCode.LeftShift);
 
+        Vector3 newDir = new Vector3(x, 0, z).normalized;
+        
         axisNormalizedDirection = newDir;
+        isMoving = Mathf.Clamp01(Mathf.Abs(newDir.x) + Mathf.Abs(newDir.z)) > 0;
+        isAiming = aiming;
+        isRunning = running;
     }
 
     void CheckCurrentSpeed() {
         float newSpeed;
         
         if (isFalling) {
-            newSpeed = velocity - Mathf.Abs(fallingMagnitude) * fallSpeed * Time.deltaTime;
+            newSpeed = velocity - Mathf.Abs(fallingMagnitude) * GetMovementStrategy().fallSpeed * Time.deltaTime;
         } else if (isMoving) {
-            newSpeed = velocity + acceleration * Time.deltaTime;
+            newSpeed = velocity + GetMovementStrategy().acceleration * Time.deltaTime;
         } else {
-            newSpeed = velocity - deceleration * Time.deltaTime;
+            newSpeed = velocity - GetMovementStrategy().deceleration * Time.deltaTime;
         }
-        velocity = Mathf.Clamp(newSpeed, 0, maximumSpeed);
+        velocity = Mathf.Clamp(newSpeed, 0, GetMovementStrategy().maximumSpeed);
     }
 
     void CheckFallingSpeed() {
         if (isGrounded) {
             fallingMagnitude = -1f;
         } else {
-            fallingMagnitude += Physics.gravity.y * fallSpeed * Time.deltaTime;
+            fallingMagnitude += Physics.gravity.y * GetMovementStrategy().fallSpeed * Time.deltaTime;
         }
 
         isFalling = Mathf.Abs(fallingMagnitude) > 1;
@@ -110,15 +122,6 @@ public class PlayerController : Mechanic
 
     void CheckGrounded() {
         isGrounded = Physics.CheckSphere(transform.TransformPoint(groundedOffset), groundedRadius, groundLayer);
-    }
-
-    void CheckDirectionCanceling(Vector3 previousDir, Vector3 newDir, bool isMoving) {
-        Vector3 roundedPrev = Vector3Int.RoundToInt(previousDir);
-        Vector3 roundedNew = Vector3Int.RoundToInt(newDir);
-        
-        if (Vector3.Dot(roundedPrev, roundedNew) == -1 && isMoving) {
-            velocity = 0f;
-        }
     }
 
     void OnDrawGizmosSelected() {

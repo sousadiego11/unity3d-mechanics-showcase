@@ -3653,16 +3653,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2239411791044763013, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: playerMovements.Array.data[1].deceleration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2239411791044763013, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
+      propertyPath: playerMovements.Array.data[1].maximumSpeed
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2646813052319802225, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.06
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2646813052319802225, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.37
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2838613354673423054, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
       propertyPath: m_IsActive
@@ -3670,7 +3674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4242418185348515143, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2.32
       objectReference: {fileID: 0}
     - target: {fileID: 4242418185348515143, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3709,8 +3713,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5778241272809899663, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: defaultProperties.offset.y
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778241272809899663, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
+      propertyPath: defaultProperties.offset.z
+      value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 7834902510563091221, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
       propertyPath: m_Name
