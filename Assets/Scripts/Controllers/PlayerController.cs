@@ -37,7 +37,7 @@ public class PlayerController : Mechanic
 
         CheckGrounded();
         CheckFallingSpeed();
-        CheckCurrentSpeed();
+        CheckVelocity();
         
         HandleMovement();
         HandleAnimation();
@@ -80,8 +80,6 @@ public class PlayerController : Mechanic
     void LockMovementOrInteract() {
         if (Locked()) {
             velocity = 0f;
-        } else if (isRecovering){
-            velocity = 1f;
         } else {
             CheckInteractions();
         }
@@ -101,27 +99,30 @@ public class PlayerController : Mechanic
         isRunning = running;
     }
 
-    void CheckCurrentSpeed() {
-        float newSpeed;
+    void CheckVelocity() {
+        PlayerMovement movementSTR = GetMovementStrategy();
+        float speedToAchieve;
+        float multiplier = isMoving ? movementSTR.acceleration : movementSTR.deceleration;
         
-        if (isFalling) {
-            newSpeed = velocity - Mathf.Abs(fallingMagnitude) * GetMovementStrategy().fallSpeed * Time.deltaTime;
-        } else if (isMoving) {
-            newSpeed = velocity + GetMovementStrategy().acceleration * Time.deltaTime;
+        if (isFalling || !isMoving || isRecovering) {
+            speedToAchieve = 0f;
         } else {
-            newSpeed = velocity - GetMovementStrategy().deceleration * Time.deltaTime;
+            speedToAchieve = movementSTR.maximumSpeed;
         }
-        velocity = Mathf.Clamp(newSpeed, 0, GetMovementStrategy().maximumSpeed);
+
+        velocity = Mathf.Lerp(velocity, speedToAchieve, multiplier * Time.deltaTime);
     }
 
     void CheckFallingSpeed() {
+        PlayerMovement movementSTR = GetMovementStrategy();
+
         if (isGrounded) {
-            fallingMagnitude = -1f;
+            fallingMagnitude = -1;
         } else {
-            fallingMagnitude += Physics.gravity.y * GetMovementStrategy().fallSpeed * Time.deltaTime;
+            fallingMagnitude = Mathf.Lerp(fallingMagnitude, Physics.gravity.y, movementSTR.fallSpeed * Time.deltaTime);
         }
 
-        isFalling = Mathf.Abs(fallingMagnitude) > GetMovementStrategy().fallSpeed * 2;
+        isFalling = Mathf.Abs(fallingMagnitude) > Mathf.Abs(Physics.gravity.y / 3);
     }
 
     void CheckGrounded() {
