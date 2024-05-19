@@ -31,6 +31,7 @@ public class PlayerController : Mechanic
     public bool isRecovering;
 
     Vector3 axisNormalizedDirection;
+    Vector3 axisDirection;
 
     void Update() {
         LockMovementOrInteract();
@@ -73,9 +74,14 @@ public class PlayerController : Mechanic
     }
 
     void HandleAnimation() {
+        animator.SetFloat("Velocity", velocity);
+
         animator.SetBool("isFalling", isFalling);
         animator.SetBool("isGrounded", isGrounded);
-        animator.SetFloat("Velocity", velocity);
+        animator.SetBool("isAiming", isAiming);
+
+        animator.SetFloat("XAxis", axisDirection.x);
+        animator.SetFloat("ZAxis", axisDirection.z);
         isRecovering = animator.GetCurrentAnimatorStateInfo(0).IsName("Falling To Landing");
     }
 
@@ -93,9 +99,10 @@ public class PlayerController : Mechanic
         bool aiming = Input.GetMouseButton(1);
         bool running = Input.GetKey(KeyCode.LeftShift);
 
-        Vector3 newDir = new Vector3(x, 0, z).normalized;
+        Vector3 newDir = new(x, 0, z);
         
-        axisNormalizedDirection = newDir;
+        axisDirection = newDir;
+        axisNormalizedDirection = newDir.normalized;
         isMoving = Mathf.Clamp01(Mathf.Abs(newDir.x) + Mathf.Abs(newDir.z)) > 0;
         isAiming = aiming;
         isRunning = running;

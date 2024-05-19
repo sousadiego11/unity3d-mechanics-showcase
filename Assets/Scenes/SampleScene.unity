@@ -3748,6 +3748,10 @@ PrefabInstance:
       propertyPath: defaultProperties.offset.z
       value: 3.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5778241272809899663, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
+      propertyPath: properties.Array.data[2].offset.z
+      value: 1.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7834902510563091221, guid: e204496cc887a8d49aab231c20f6354f, type: 3}
       propertyPath: m_Name
       value: Character
