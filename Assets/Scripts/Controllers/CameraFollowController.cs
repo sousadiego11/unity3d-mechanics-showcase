@@ -6,10 +6,12 @@ using UnityEngine;
 public class CameraFollowController : Mechanic
 {
     [SerializeField] PlayerController player;
+    [SerializeField] float zoomSpeed;
     [SerializeField] List<CameraFollowProps> properties;
 
     float pitchPos;
     float yawPos;
+    Vector3 offset;
 
     void Update() {
         if (!Locked()) {
@@ -19,20 +21,25 @@ public class CameraFollowController : Mechanic
             yawPos += Input.GetAxis("Mouse X"); // Change to be a universal input, regardles of the mouse
         }
         
+        LerpOffset();
         Quaternion rotationMatrix = Quaternion.Euler(pitchPos, yawPos, 0f);
-        Vector3 newPositionOffset = Vector3.forward * GetPropertiesStrategy().offset.z + Vector3.up * GetPropertiesStrategy().offset.y + Vector3.right * GetPropertiesStrategy().offset.x;
+        Vector3 newPositionOffset = Vector3.forward * offset.z + Vector3.up * offset.y + Vector3.right * offset.x;
         Vector3 newPosition = player.transform.position - rotationMatrix * newPositionOffset;
 
         transform.SetPositionAndRotation(newPosition, rotationMatrix);
     }
 
-    CameraFollowProps GetPropertiesStrategy() {
+    void LerpOffset() {
+        CameraFollowProps currentProps;
+
         if (player.isRunning) {
-            return properties.Find(m => m.identifier == CameraFollowProps.NameEnum.Running);
+            currentProps = properties.Find(m => m.identifier == CameraFollowProps.NameEnum.Running);
         } else if (player.isAiming) {
-            return properties.Find(m => m.identifier == CameraFollowProps.NameEnum.Aiming);
+            currentProps = properties.Find(m => m.identifier == CameraFollowProps.NameEnum.Aiming);
         } else {
-            return properties.Find(m => m.identifier == CameraFollowProps.NameEnum.Default);
+            currentProps = properties.Find(m => m.identifier == CameraFollowProps.NameEnum.Default);
         }
+
+        offset = Vector3.Lerp(offset, currentProps.offset, Time.deltaTime * zoomSpeed);
     }
 }

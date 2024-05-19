@@ -947,6 +947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2239411791044763013}
+  zoomSpeed: 4
   properties:
   - offset: {x: 0, y: -1.5, z: 3.2}
     identifier: 0
