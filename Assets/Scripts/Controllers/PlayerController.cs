@@ -28,20 +28,20 @@ public class PlayerController : Mechanic
     public bool isMoving;
     public bool isRunning;
     public bool isAiming;
+    public bool isRecovering;
 
     Vector3 axisNormalizedDirection;
 
     void Update() {
-        if (Locked()) {
-            HandleLockMovement();
-        } else {
-            CheckInteractions();
-        }
+        LockMovementOrInteract();
+
         CheckGrounded();
         CheckFallingSpeed();
         CheckCurrentSpeed();
+        
         HandleMovement();
         HandleAnimation();
+
     }
 
     PlayerMovement GetMovementStrategy() {
@@ -71,16 +71,20 @@ public class PlayerController : Mechanic
     }
 
     void HandleAnimation() {
-        animator.SetBool("isFalling", !isGrounded);
+        animator.SetBool("isFalling", isFalling);
         animator.SetBool("isGrounded", isGrounded);
         animator.SetFloat("Velocity", velocity);
+        isRecovering = animator.GetCurrentAnimatorStateInfo(0).IsName("Falling To Landing");
     }
 
-    void HandleLockMovement() {
-        axisNormalizedDirection = Vector3.zero;
-        isMoving = false;
-        isAiming = false;
-        isRunning = false;
+    void LockMovementOrInteract() {
+        if (Locked()) {
+            velocity = 0f;
+        } else if (isRecovering){
+            velocity = 1f;
+        } else {
+            CheckInteractions();
+        }
     }
 
     void CheckInteractions() {
@@ -117,7 +121,7 @@ public class PlayerController : Mechanic
             fallingMagnitude += Physics.gravity.y * GetMovementStrategy().fallSpeed * Time.deltaTime;
         }
 
-        isFalling = Mathf.Abs(fallingMagnitude) > 1;
+        isFalling = Mathf.Abs(fallingMagnitude) > GetMovementStrategy().fallSpeed * 2;
     }
 
     void CheckGrounded() {
