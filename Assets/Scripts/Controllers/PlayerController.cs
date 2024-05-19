@@ -56,14 +56,16 @@ public class PlayerController : Mechanic
 
     void HandleMovement() {
         Vector3 direction = cam.transform.rotation * axisNormalizedDirection;
+        Vector3 rotation = isAiming ? cam.transform.forward : cam.transform.rotation * axisNormalizedDirection;
         direction.y = 0f;
+        rotation.y = 0f;
 
         Vector3 movementMotion = velocity * direction;
         movementMotion.y = fallingMagnitude;
         characterController.Move(movementMotion * Time.deltaTime);
 
-        if (isMoving) {
-            Quaternion rotationDirection = Quaternion.LookRotation(direction);
+        if (isMoving | isAiming) {
+            Quaternion rotationDirection = Quaternion.LookRotation(rotation);
             Quaternion rotationOffset = Quaternion.RotateTowards(transform.rotation, rotationDirection, GetMovementStrategy().rotationSpeed * Time.deltaTime);
             transform.rotation = rotationOffset;
         }
