@@ -46,7 +46,7 @@ public class PlayerController : Mechanic
     }
 
     PlayerMovement GetMovementStrategy() {
-        if (isRunning) {
+        if (isRunning && !isAiming) {
             return playerMovements.Find(m => m.identifier == PlayerMovement.NameEnum.Running);
         } else if (isAiming) {
             return playerMovements.Find(m => m.identifier == PlayerMovement.NameEnum.Aiming);
@@ -57,16 +57,14 @@ public class PlayerController : Mechanic
 
     void HandleMovement() {
         Vector3 direction = cam.transform.rotation * axisNormalizedDirection;
-        Vector3 rotation = isAiming ? cam.transform.forward : cam.transform.rotation * axisNormalizedDirection;
         direction.y = 0f;
-        rotation.y = 0f;
 
         Vector3 movementMotion = velocity * direction;
         movementMotion.y = fallingMagnitude;
         characterController.Move(movementMotion * Time.deltaTime);
 
         if (isMoving | isAiming) {
-            Quaternion rotationDirection = Quaternion.LookRotation(rotation);
+            Quaternion rotationDirection = Quaternion.LookRotation(direction);
             Quaternion rotationOffset = Quaternion.RotateTowards(transform.rotation, rotationDirection, GetMovementStrategy().rotationSpeed * Time.deltaTime);
             transform.rotation = rotationOffset;
         }
@@ -80,8 +78,8 @@ public class PlayerController : Mechanic
         animator.SetBool("isGrounded", isGrounded);
         animator.SetBool("isAiming", isAiming);
 
-        animator.SetFloat("XAxis", axisDirection.x);
-        animator.SetFloat("ZAxis", axisDirection.z);
+        animator.SetFloat("XAxis", axisDirection.x * velocity);
+        animator.SetFloat("ZAxis", axisDirection.z * velocity);
         isRecovering = animator.GetCurrentAnimatorStateInfo(0).IsName("Falling To Landing");
     }
 
@@ -106,6 +104,8 @@ public class PlayerController : Mechanic
         isMoving = Mathf.Clamp01(Mathf.Abs(newDir.x) + Mathf.Abs(newDir.z)) > 0;
         isAiming = aiming;
         isRunning = running;
+
+        UIController.Instance.PlayerUI(isAiming);
     }
 
     void CheckVelocity() {

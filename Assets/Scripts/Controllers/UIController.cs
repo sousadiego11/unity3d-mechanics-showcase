@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour {
     [SerializeField] Canvas canvas;
+    [SerializeField] Canvas playerCanvas;
 
     public static UIController Instance {get; private set;}
 
-    public bool VisibleUI() {
-        return canvas.enabled;
-    }
 
     private void Awake() {
         if (Instance != null && Instance != this) {
@@ -20,10 +18,13 @@ public class UIController : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetKey(KeyCode.Tab)) {
-            canvas.enabled = true;
-        } else {
-            canvas.enabled = false;
-        }
+        canvas.enabled = Input.GetKey(KeyCode.Tab);
+    }
+    public bool VisibleUI() {
+        return canvas.enabled;
+    }
+
+    public void PlayerUI(bool visible) {
+        playerCanvas.enabled = visible;
     }
 }
