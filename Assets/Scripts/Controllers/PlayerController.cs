@@ -33,6 +33,7 @@ public class PlayerController : Mechanic
 
     Vector3 axisNormalizedDirection;
     Vector3 axisDirection;
+    Vector3 axisAimingDirection;
 
     void Update() {
         LockMovementOrInteract();
@@ -66,7 +67,7 @@ public class PlayerController : Mechanic
         characterController.Move(movementMotion * Time.deltaTime);
 
         if (isMoving || isAiming) {
-            Quaternion rotationDirection = Quaternion.LookRotation(direction);
+            Quaternion rotationDirection = Quaternion.LookRotation(isAiming ? axisAimingDirection : direction);
             Quaternion rotationOffset = Quaternion.RotateTowards(transform.rotation, rotationDirection, GetMovementStrategy().rotationSpeed * Time.deltaTime);
             transform.rotation = rotationOffset;
         }
@@ -87,7 +88,11 @@ public class PlayerController : Mechanic
 
     void HandleAiming() {
         UIController.Instance.PlayerUI(isAiming);
-        if (isAiming) screenPointer.Raycast();
+        if (isAiming) {
+            screenPointer.Raycast();
+            axisAimingDirection = (screenPointer.hitPos - transform.position).normalized;
+            axisAimingDirection.y = 0f;
+        };
     }
 
     void LockMovementOrInteract() {
