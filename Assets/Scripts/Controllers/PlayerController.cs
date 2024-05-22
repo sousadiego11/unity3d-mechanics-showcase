@@ -13,7 +13,7 @@ public class PlayerController : Mechanic
     [SerializeField] private  CameraFollowController cam;
     [SerializeField] private  Animator animator;
     [SerializeField] private  CharacterController characterController;
-    [SerializeField] private  ScreenPointer screenPointer;
+    [SerializeField] private  SimplePointer screenPointer;
 
     [Header("[Ground Check]")]
     [SerializeField] private  float groundedRadius;
@@ -65,8 +65,8 @@ public class PlayerController : Mechanic
         movementMotion.y = fallingMagnitude;
         characterController.Move(movementMotion * Time.deltaTime);
 
-        if (isMoving | isAiming) {
-            Quaternion rotationDirection = Quaternion.LookRotation(isAiming ? screenPointer.hitPos : direction);
+        if (isMoving || isAiming) {
+            Quaternion rotationDirection = Quaternion.LookRotation(direction);
             Quaternion rotationOffset = Quaternion.RotateTowards(transform.rotation, rotationDirection, GetMovementStrategy().rotationSpeed * Time.deltaTime);
             transform.rotation = rotationOffset;
         }
@@ -80,14 +80,14 @@ public class PlayerController : Mechanic
         animator.SetBool("isGrounded", isGrounded);
         animator.SetBool("isAiming", isAiming);
 
-        animator.SetFloat("XAxis", axisDirection.x * velocity);
-        animator.SetFloat("ZAxis", axisDirection.z * velocity);
+        animator.SetFloat("Velocity X", axisDirection.x);
+        animator.SetFloat("Velocity Z", axisDirection.z);
         isRecovering = animator.GetCurrentAnimatorStateInfo(0).IsName("Falling To Landing");
     }
 
     void HandleAiming() {
         UIController.Instance.PlayerUI(isAiming);
-        screenPointer.Raycast();
+        if (isAiming) screenPointer.Raycast();
     }
 
     void LockMovementOrInteract() {

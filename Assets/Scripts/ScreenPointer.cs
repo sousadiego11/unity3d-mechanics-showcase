@@ -4,20 +4,21 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class ScreenPointer : MonoBehaviour
+public class SimplePointer : MonoBehaviour
 {
     [SerializeField] LayerMask layerMaskTarget;
     [SerializeField] Camera cam;
     [HideInInspector] public Vector3 hitPos;
 
     public void Raycast() {
-        Vector2 screenCenter = new(Screen.width / 2f, Screen.height / 2f);
-        Ray ray = cam.ScreenPointToRay(screenCenter);
+        Vector3 screenCenter = new(Screen.width / 2f, Screen.height / 2f, 0f);
+        Vector3 sourceWorld = cam.ScreenToWorldPoint(new Vector3(screenCenter.x, screenCenter.y, cam.nearClipPlane));
+        Vector3 worldPos = cam.ScreenToWorldPoint(new Vector3(screenCenter.x, screenCenter.y, cam.farClipPlane));
+        Vector3 direction = (worldPos - sourceWorld).normalized;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, cam.farClipPlane, layerMaskTarget)) {
+        if (Physics.Raycast(sourceWorld, direction, out RaycastHit hit, cam.farClipPlane, layerMaskTarget)) {
             hitPos = hit.point;
-            hitPos.y = 0f;
-            Debug.DrawRay(ray.direction, hitPos, Color.red);
+            Debug.DrawLine(sourceWorld, hit.point, Color.red);
         }
     }
 }
