@@ -16,6 +16,8 @@ public class ScreenPointer : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, cam.farClipPlane, layerMaskTarget)) {
             hitPos = hit.point;
+            hitPos.y = 0f;
+            Debug.DrawRay(ray.direction, hitPos, Color.red);
         }
     }
 }

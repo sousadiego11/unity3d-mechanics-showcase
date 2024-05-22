@@ -66,7 +66,7 @@ public class PlayerController : Mechanic
         characterController.Move(movementMotion * Time.deltaTime);
 
         if (isMoving | isAiming) {
-            Quaternion rotationDirection = Quaternion.LookRotation(direction);
+            Quaternion rotationDirection = Quaternion.LookRotation(isAiming ? screenPointer.hitPos : direction);
             Quaternion rotationOffset = Quaternion.RotateTowards(transform.rotation, rotationDirection, GetMovementStrategy().rotationSpeed * Time.deltaTime);
             transform.rotation = rotationOffset;
         }
