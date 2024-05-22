@@ -13,6 +13,7 @@ public class PlayerController : Mechanic
     [SerializeField] private  CameraFollowController cam;
     [SerializeField] private  Animator animator;
     [SerializeField] private  CharacterController characterController;
+    [SerializeField] private  ScreenPointer screenPointer;
 
     [Header("[Ground Check]")]
     [SerializeField] private  float groundedRadius;
@@ -40,6 +41,7 @@ public class PlayerController : Mechanic
         CheckFallingSpeed();
         CheckVelocity();
         
+        HandleAiming();
         HandleMovement();
         HandleAnimation();
 
@@ -83,6 +85,11 @@ public class PlayerController : Mechanic
         isRecovering = animator.GetCurrentAnimatorStateInfo(0).IsName("Falling To Landing");
     }
 
+    void HandleAiming() {
+        UIController.Instance.PlayerUI(isAiming);
+        screenPointer.Raycast();
+    }
+
     void LockMovementOrInteract() {
         if (Locked()) {
             velocity = 0f;
@@ -104,8 +111,6 @@ public class PlayerController : Mechanic
         isMoving = Mathf.Clamp01(Mathf.Abs(newDir.x) + Mathf.Abs(newDir.z)) > 0;
         isAiming = aiming;
         isRunning = running;
-
-        UIController.Instance.PlayerUI(isAiming);
     }
 
     void CheckVelocity() {

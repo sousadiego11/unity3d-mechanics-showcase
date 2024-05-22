@@ -947,13 +947,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2239411791044763013}
-  zoomSpeed: 4
+  zoomSpeed: 8
   properties:
   - offset: {x: 0, y: -1.5, z: 3.2}
     identifier: 0
   - offset: {x: 0, y: -1.5, z: 4}
     identifier: 1
-  - offset: {x: -0.4, y: -1.5, z: 1.4}
+  - offset: {x: 0.4, y: -1.5, z: 1.8}
     identifier: 2
 --- !u!1 &2871885067984909325
 GameObject:
@@ -997,6 +997,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2646813052319802225}
   - component: {fileID: 2239411791044763013}
+  - component: {fileID: 2376177434994780138}
   - component: {fileID: 5313629466424154037}
   - component: {fileID: 5672505729541620431}
   m_Layer: 0
@@ -1041,23 +1042,24 @@ MonoBehaviour:
     acceleration: 5
     deceleration: 10
     rotationSpeed: 400
-    fallSpeed: 10
+    fallSpeed: 2
     identifier: 0
-  - maximumSpeed: 10
+  - maximumSpeed: 8
     acceleration: 15
-    deceleration: 10
+    deceleration: 15
     rotationSpeed: 400
-    fallSpeed: 10
+    fallSpeed: 2
     identifier: 1
-  - maximumSpeed: 2
-    acceleration: 2
+  - maximumSpeed: 1.5
+    acceleration: 1.5
     deceleration: 10
     rotationSpeed: 400
-    fallSpeed: 10
+    fallSpeed: 2
     identifier: 2
   cam: {fileID: 5778241272809899663}
   animator: {fileID: 5313629466424154037}
   characterController: {fileID: 5672505729541620431}
+  screenPointer: {fileID: 2376177434994780138}
   groundedRadius: 0.22
   groundedOffset: {x: 0, y: 0.1, z: 0}
   groundLayer:
@@ -1070,6 +1072,23 @@ MonoBehaviour:
   isMoving: 0
   isRunning: 0
   isAiming: 0
+  isRecovering: 0
+--- !u!114 &2376177434994780138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2879014217597248460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623a8a800488cd848b3e31b8c2e5255f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMaskTarget:
+    serializedVersion: 2
+    m_Bits: 2035
+  cam: {fileID: 66545744825201377}
 --- !u!95 &5313629466424154037
 Animator:
   serializedVersion: 5
@@ -1116,7 +1135,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 0.98, z: 0}
 --- !u!1 &2937742214551942932
 GameObject:
   m_ObjectHideFlags: 0
@@ -2187,7 +2206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4242418185348515143
 Transform:
   m_ObjectHideFlags: 0
