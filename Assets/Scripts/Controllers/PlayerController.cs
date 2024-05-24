@@ -97,7 +97,7 @@ public class PlayerController : Mechanic
     void CheckGroundVelocity() {
         PlayerMovement movementSTR = GetMovementStrategy();
         float speedToAchieve;
-        float multiplier = isMoving ? movementSTR.acceleration : movementSTR.deceleration;
+        float multiplier = isFalling || isJumping ? movementSTR.airDeceleration : isMoving ? movementSTR.acceleration : movementSTR.deceleration;
         
         if (isFalling || !isMoving || isRecovering) {
             speedToAchieve = 0f;
@@ -129,6 +129,8 @@ public class PlayerController : Mechanic
             isFalling = true;
             isJumping = false;
             isGrounded = false;
+        } else if (gravityForce < -1 && !isGrounded) {
+            isFalling = true;
         }
     }
 
