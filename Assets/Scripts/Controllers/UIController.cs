@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour {
     [SerializeField] Canvas canvas;
-    [SerializeField] Canvas playerCanvas;
 
     public static UIController Instance {get; private set;}
 
@@ -21,9 +20,5 @@ public class UIController : MonoBehaviour {
     }
     public bool VisibleUI() {
         return canvas.enabled;
-    }
-
-    public void PlayerUI(bool visible) {
-        playerCanvas.enabled = visible;
     }
 }

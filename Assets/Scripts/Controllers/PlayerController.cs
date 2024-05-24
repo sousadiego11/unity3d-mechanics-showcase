@@ -13,7 +13,6 @@ public class PlayerController : Mechanic
     [SerializeField] private  CameraFollowController cam;
     [SerializeField] private  Animator animator;
     [SerializeField] private  CharacterController characterController;
-    [SerializeField] private  SimplePointer screenPointer;
 
     [Header("[Ground Check]")]
     [SerializeField] private  float groundedRadius;
@@ -28,12 +27,9 @@ public class PlayerController : Mechanic
     [SerializeField] private float velocity = 1f;
     public bool isMoving;
     public bool isRunning;
-    public bool isAiming;
     public bool isRecovering;
 
     Vector3 axisNormalizedDirection;
-    Vector3 axisDirection;
-    Vector3 axisAimingDirection;
 
     void Update() {
         LockMovementOrInteract();
@@ -42,17 +38,14 @@ public class PlayerController : Mechanic
         CheckFallingSpeed();
         CheckVelocity();
         
-        HandleAiming();
         HandleMovement();
         HandleAnimation();
 
     }
 
     PlayerMovement GetMovementStrategy() {
-        if (isRunning && !isAiming) {
+        if (isRunning) {
             return playerMovements.Find(m => m.identifier == PlayerMovement.NameEnum.Running);
-        } else if (isAiming) {
-            return playerMovements.Find(m => m.identifier == PlayerMovement.NameEnum.Aiming);
         } else {
             return playerMovements.Find(m => m.identifier == PlayerMovement.NameEnum.Default);
         }
@@ -66,8 +59,8 @@ public class PlayerController : Mechanic
         movementMotion.y = fallingMagnitude;
         characterController.Move(movementMotion * Time.deltaTime);
 
-        if (isMoving || isAiming) {
-            Quaternion rotationDirection = Quaternion.LookRotation(isAiming ? axisAimingDirection : direction);
+        if (isMoving) {
+            Quaternion rotationDirection = Quaternion.LookRotation(direction);
             Quaternion rotationOffset = Quaternion.RotateTowards(transform.rotation, rotationDirection, GetMovementStrategy().rotationSpeed * Time.deltaTime);
             transform.rotation = rotationOffset;
         }
@@ -79,20 +72,7 @@ public class PlayerController : Mechanic
 
         animator.SetBool("isFalling", isFalling);
         animator.SetBool("isGrounded", isGrounded);
-        animator.SetBool("isAiming", isAiming);
-
-        animator.SetFloat("Velocity X", axisDirection.x);
-        animator.SetFloat("Velocity Z", axisDirection.z);
         isRecovering = animator.GetCurrentAnimatorStateInfo(0).IsName("Falling To Landing");
-    }
-
-    void HandleAiming() {
-        UIController.Instance.PlayerUI(isAiming);
-        if (isAiming) {
-            screenPointer.Raycast();
-            axisAimingDirection = (screenPointer.hitPos - transform.position).normalized;
-            axisAimingDirection.y = 0f;
-        };
     }
 
     void LockMovementOrInteract() {
@@ -106,15 +86,12 @@ public class PlayerController : Mechanic
     void CheckInteractions() {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
-        bool aiming = Input.GetMouseButton(1);
         bool running = Input.GetKey(KeyCode.LeftShift);
 
         Vector3 newDir = new(x, 0, z);
         
-        axisDirection = newDir;
         axisNormalizedDirection = newDir.normalized;
         isMoving = Mathf.Clamp01(Mathf.Abs(newDir.x) + Mathf.Abs(newDir.z)) > 0;
-        isAiming = aiming;
         isRunning = running;
     }
 

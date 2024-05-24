@@ -32,10 +32,8 @@ public class CameraFollowController : Mechanic
     void LerpOffset() {
         CameraFollowProps currentProps;
 
-        if (player.isRunning && !player.isAiming) {
+        if (player.isRunning) {
             currentProps = properties.Find(m => m.identifier == CameraFollowProps.NameEnum.Running);
-        } else if (player.isAiming) {
-            currentProps = properties.Find(m => m.identifier == CameraFollowProps.NameEnum.Aiming);
         } else {
             currentProps = properties.Find(m => m.identifier == CameraFollowProps.NameEnum.Default);
         }
