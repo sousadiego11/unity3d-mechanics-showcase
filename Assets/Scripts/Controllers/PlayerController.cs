@@ -119,7 +119,7 @@ public class PlayerController : Mechanic
             gravityForce = -1;
             isJumping = false;
             isFalling = false;
-        } else {
+        } else if (isFalling) {
             gravityForce = Mathf.Lerp(gravityForce, Physics.gravity.y, movementSTR.fallSpeed * Time.deltaTime);
         }
 
@@ -129,7 +129,7 @@ public class PlayerController : Mechanic
             isFalling = true;
             isJumping = false;
             isGrounded = false;
-        } else if (gravityForce < -1 && !isGrounded) {
+        } else if (gravityForce < -1 || !isGrounded) {
             isFalling = true;
         }
     }
