@@ -8,6 +8,7 @@ public class SimplePointer : MonoBehaviour
 {
     [SerializeField] LayerMask layerMaskTarget;
     [SerializeField] Camera cam;
+    [SerializeField] GameObject placeholder;
     [HideInInspector] public Vector3 hitPos;
 
     public void Raycast() {
@@ -18,6 +19,7 @@ public class SimplePointer : MonoBehaviour
 
         if (Physics.Raycast(sourceWorld, direction, out RaycastHit hit, cam.farClipPlane, layerMaskTarget)) {
             hitPos = hit.point;
+            placeholder.transform.position = hit.point;
             Debug.DrawLine(sourceWorld, hit.point, Color.red);
         }
     }
