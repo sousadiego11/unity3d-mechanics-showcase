@@ -7,6 +7,7 @@ public struct PlayerMovement {
     public float deceleration; //10
     public float rotationSpeed; //400
     public float fallSpeed; //10
+    public float jumpSpeed; //15
     public NameEnum identifier;
     
     public enum NameEnum {

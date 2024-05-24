@@ -21,26 +21,25 @@ public class PlayerController : Mechanic
 
 
     [Header("[State]")]
+    [SerializeField] public bool isMoving;
+    [SerializeField] public bool isRunning;
+    [SerializeField] public bool isRecovering;
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isFalling;
-    [SerializeField] private float fallingMagnitude;
+    [SerializeField] private bool isJumping;
+    [SerializeField] private float gravityForce;
     [SerializeField] private float velocity = 1f;
-    public bool isMoving;
-    public bool isRunning;
-    public bool isRecovering;
 
     Vector3 axisNormalizedDirection;
 
     void Update() {
         LockMovementOrInteract();
 
-        CheckGrounded();
-        CheckFallingSpeed();
-        CheckVelocity();
+        CheckVerticalMovements();
+        CheckGroundVelocity();
         
         HandleMovement();
         HandleAnimation();
-
     }
 
     PlayerMovement GetMovementStrategy() {
@@ -56,7 +55,7 @@ public class PlayerController : Mechanic
         direction.y = 0f;
 
         Vector3 movementMotion = velocity * direction;
-        movementMotion.y = fallingMagnitude;
+        movementMotion.y = gravityForce;
         characterController.Move(movementMotion * Time.deltaTime);
 
         if (isMoving) {
@@ -95,7 +94,7 @@ public class PlayerController : Mechanic
         isRunning = running;
     }
 
-    void CheckVelocity() {
+    void CheckGroundVelocity() {
         PlayerMovement movementSTR = GetMovementStrategy();
         float speedToAchieve;
         float multiplier = isMoving ? movementSTR.acceleration : movementSTR.deceleration;
@@ -109,20 +108,28 @@ public class PlayerController : Mechanic
         velocity = Mathf.Lerp(velocity, speedToAchieve, multiplier * Time.deltaTime);
     }
 
-    void CheckFallingSpeed() {
+    void CheckVerticalMovements() {
         PlayerMovement movementSTR = GetMovementStrategy();
 
-        if (isGrounded) {
-            fallingMagnitude = -1;
+        if ((Input.GetKeyDown(KeyCode.Space) && isGrounded) || isJumping) {
+            gravityForce = Mathf.Lerp(gravityForce, Mathf.Abs(Physics.gravity.y) * 3, movementSTR.jumpSpeed * Time.deltaTime);
+            isJumping = true;
+            isFalling = false;
+        } else if (isGrounded) {
+            gravityForce = -1;
+            isJumping = false;
+            isFalling = false;
         } else {
-            fallingMagnitude = Mathf.Lerp(fallingMagnitude, Physics.gravity.y, movementSTR.fallSpeed * Time.deltaTime);
+            gravityForce = Mathf.Lerp(gravityForce, Physics.gravity.y, movementSTR.fallSpeed * Time.deltaTime);
         }
 
-        isFalling = Mathf.Abs(fallingMagnitude) > Mathf.Abs(Physics.gravity.y / 3);
-    }
+        isGrounded = !isJumping && Physics.CheckSphere(transform.TransformPoint(groundedOffset), groundedRadius, groundLayer);
 
-    void CheckGrounded() {
-        isGrounded = Physics.CheckSphere(transform.TransformPoint(groundedOffset), groundedRadius, groundLayer);
+        if (gravityForce >= Mathf.Abs(Physics.gravity.y) * 2.8) {
+            isFalling = true;
+            isJumping = false;
+            isGrounded = false;
+        }
     }
 
     void OnDrawGizmosSelected() {
