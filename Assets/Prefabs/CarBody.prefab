@@ -115,6 +115,7 @@ MonoBehaviour:
     tire:
       transform: {fileID: 8616147489216189778}
       friction: 0.5
+      maxAngle: 0
   - spring:
       transform: {fileID: 1197335119113923784}
       strength: 2000
@@ -123,6 +124,7 @@ MonoBehaviour:
     tire:
       transform: {fileID: 1751330748910522795}
       friction: 0.5
+      maxAngle: 0
   - spring:
       transform: {fileID: 1784338425980713940}
       strength: 2000
@@ -131,6 +133,7 @@ MonoBehaviour:
     tire:
       transform: {fileID: 3162481969829603975}
       friction: 0.5
+      maxAngle: 10
   - spring:
       transform: {fileID: 3479323475107478426}
       strength: 2000
@@ -139,6 +142,7 @@ MonoBehaviour:
     tire:
       transform: {fileID: 7543449712227172540}
       friction: 0.5
+      maxAngle: 10
   acceleration: 4
   maxTorque: 5
 --- !u!65 &201402073267253982

@@ -59,6 +59,11 @@ public class CarController : Mechanic
     }
 
     void HandleTireRotation(Tire tire) {
-        
+        // float rotationInput = Input.GetAxis("Horizontal");
+        // float steerAngle = rotationInput * tire.maxAngle;
+
+        // Quaternion rotation = Quaternion.Euler(0f, steerAngle, tire.transform.eulerAngles.z);
+
+        // tire.transform.rotation = rotation;
     }
 }

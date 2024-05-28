@@ -19,4 +19,5 @@ public struct Spring {
 public struct Tire {
     [SerializeField] public Transform transform;
     [SerializeField] [Range(0, 1)] public float friction;
+    [SerializeField] [Range(0, 15)] public float maxAngle;
 }
