@@ -27,9 +27,9 @@ public class CarController : Mechanic
         foreach (Transform tire in tires) {
             Debug.DrawRay(tire.position, Vector3.down * springRestDistance, Color.green);
 
-            if (Physics.Raycast(tire.position, -tire.up, out RaycastHit hit)) {
+            if (Physics.Raycast(tire.position, -tire.up, out RaycastHit hit, springRestDistance)) {
                 HandleSuspensions(tire, hit);
-                HandleAcceleration(tire, hit);
+                HandleForwardTorque(tire, hit);
             }
         }
     }
@@ -44,13 +44,14 @@ public class CarController : Mechanic
         rb.AddForceAtPosition(tire.up * force, tire.position);
     }
 
-    void HandleAcceleration(Transform tire, RaycastHit _) {
+    // Basic newton force law
+    void HandleForwardTorque(Transform tire, RaycastHit _) {
         if (Mathf.Abs(rb.velocity.magnitude) < maxVelocity) {
             float accelerationInput = Input.GetAxis("Vertical");
             float accelerationFactor = accelerationInput * acceleration;
-            float force = rb.mass * accelerationFactor;
+            float torque = rb.mass * accelerationFactor;
 
-            rb.AddForceAtPosition(tire.forward * force, tire.position);
+            rb.AddForceAtPosition(tire.forward * torque, tire.position);
         } else {
             rb.velocity = rb.velocity.normalized * maxVelocity;
         }
