@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class CarController : Mechanic
 {
-    [Header("Suspension")]
-    [SerializeField] float springStrength;
-    [SerializeField] float springDamping;
-    [SerializeField] float springRestDistance;
-    [SerializeField] List<Transform> tires;
+    [Header("[Car Parts]")]
+    [SerializeField] List<WheelAssembly> wheelAssemblies;
 
-    [Header("Movement")]
+    [Header("[Car Movement]")]
     [SerializeField] float acceleration;
-    [SerializeField] float maxVelocity;
+    [SerializeField] float maxTorque;
 
     private Rigidbody rb;
     void Start() {
@@ -24,36 +21,39 @@ public class CarController : Mechanic
     }
 
     void HandleForces() {
-        foreach (Transform tire in tires) {
-            Debug.DrawRay(tire.position, Vector3.down * springRestDistance, Color.green);
+        foreach (WheelAssembly WA in wheelAssemblies) {
+            Spring spring = WA.spring;
+            Tire tire = WA.tire;
 
-            if (Physics.Raycast(tire.position, -tire.up, out RaycastHit hit, springRestDistance)) {
-                HandleSuspensions(tire, hit);
+            Debug.DrawRay(spring.transform.position, Vector3.down * spring.restDist, Color.green);
+
+            if (Physics.Raycast(spring.transform.position, -spring.transform.up, out RaycastHit hit, spring.restDist)) {
+                HandleSuspensions(spring, hit);
                 HandleForwardTorque(tire, hit);
             }
         }
     }
 
-    void HandleSuspensions(Transform tire, RaycastHit hit) {
-        Vector3 tireVel = rb.GetPointVelocity(tire.position);
+    void HandleSuspensions(Spring spring, RaycastHit hit) {
+        Vector3 tireVel = rb.GetPointVelocity(spring.transform.position);
 
-        float projectedVelocity = Vector3.Dot(tire.up, tireVel);
-        float springOffset = springRestDistance - hit.distance;
-        float force = (springOffset * springStrength) - (projectedVelocity * springDamping);
+        float projectedVelocity = Vector3.Dot(spring.transform.up, tireVel);
+        float springOffset = spring.restDist - hit.distance;
+        float force = (springOffset * spring.strength) - (projectedVelocity * spring.damping);
 
-        rb.AddForceAtPosition(tire.up * force, tire.position);
+        rb.AddForceAtPosition(spring.transform.up * force, spring.transform.position);
     }
 
     // Basic newton force law
-    void HandleForwardTorque(Transform tire, RaycastHit _) {
-        if (Mathf.Abs(rb.velocity.magnitude) < maxVelocity) {
+    void HandleForwardTorque(Tire tire, RaycastHit _) {
+        if (Mathf.Abs(rb.velocity.magnitude) < maxTorque) {
             float accelerationInput = Input.GetAxis("Vertical");
             float accelerationFactor = accelerationInput * acceleration;
             float torque = rb.mass * accelerationFactor;
 
-            rb.AddForceAtPosition(tire.forward * torque, tire.position);
+            rb.AddForceAtPosition(tire.transform.forward * torque, tire.transform.position);
         } else {
-            rb.velocity = rb.velocity.normalized * maxVelocity;
+            rb.velocity = rb.velocity.normalized * maxTorque;
         }
     }
 }
