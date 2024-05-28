@@ -215,6 +215,8 @@ MonoBehaviour:
   springStrength: 1000
   springDamping: 100
   springRestDistance: 0.3
+  acceleration: 20
+  maxVelocity: 300
 --- !u!65 &201402073267253982
 BoxCollider:
   m_ObjectHideFlags: 0
