@@ -27,6 +27,7 @@ public class CarController : Mechanic
 
             Debug.DrawRay(spring.transform.position, Vector3.down * spring.restDist, Color.green);
 
+            HandleTireRotation(tire);
             if (Physics.Raycast(spring.transform.position, -spring.transform.up, out RaycastHit hit, spring.restDist)) {
                 HandleSuspensions(spring, hit);
                 HandleForwardTorque(tire, hit);
@@ -55,5 +56,9 @@ public class CarController : Mechanic
         } else {
             rb.velocity = rb.velocity.normalized * maxTorque;
         }
+    }
+
+    void HandleTireRotation(Tire tire) {
+        
     }
 }

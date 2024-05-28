@@ -298,6 +298,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1942267796635395122, guid: b44d8182f6cd78546846de08bc8744ad, type: 3}
+      propertyPath: maxTorque
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1942267796635395122, guid: b44d8182f6cd78546846de08bc8744ad, type: 3}
+      propertyPath: acceleration
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5106920521481078649, guid: b44d8182f6cd78546846de08bc8744ad, type: 3}
       propertyPath: m_Name
       value: CarAssembly
