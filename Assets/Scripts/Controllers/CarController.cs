@@ -4,44 +4,33 @@ using UnityEngine;
 
 public class CarController : Mechanic
 {
-    [Header("[Movement]")]
-    [SerializeField] float torqueForce;
-    [SerializeField] float steerForce;
-    [SerializeField] float maxSpeed;
+    [SerializeField] List<Transform> tires;
+    [SerializeField] float springStrength;
+    [SerializeField] float springDamping;
+    [SerializeField] float springRestDistance;
 
-    [Header("[Interaction]")]
-    [SerializeField] bool steering;
-    [SerializeField] bool accelerating;
-    
-    [Header("[Generated Dynamics]")]
-    [SerializeField] private float speed;
-    [SerializeField] private Vector3 movementAxis;
-
-    void Update() {
-        CheckInteractions();
-        CheckSpeed();
-        MoveCar();
+    private Rigidbody rb;
+    void Start() {
+        rb = GetComponent<Rigidbody>();
     }
 
-    void CheckInteractions() {
-        float z = Input.GetAxis("Vertical");
-        float x = Input.GetAxis("Horizontal");
-        movementAxis = new Vector3(x, 0f, z).normalized;
+    void FixedUpdate() {
+        foreach (Transform tire in tires) {
 
-        steering = movementAxis.z < 0f;
-        accelerating = movementAxis.z > 0f;
-    }
+            Vector3 springDirection = tire.up;
+            Debug.DrawRay(tire.position, Vector3.down * springRestDistance, Color.green);
 
-    void CheckSpeed() {
-        if (accelerating) {
-            float incrementalForce = Mathf.Abs(movementAxis.z) * Time.deltaTime * torqueForce;
-            speed += incrementalForce;
-        } else if (steering) {
-            float decrementalForce = Mathf.Abs(movementAxis.z) * Time.deltaTime * steerForce;
-            speed -= decrementalForce;
+            if (Physics.Raycast(tire.position, -springDirection, out RaycastHit hit)) {
+                Vector3 tireVel = rb.GetPointVelocity(tire.position);
+
+                float projectedVelocity = Vector3.Dot(springDirection, tireVel);
+                float springOffset = springRestDistance - hit.distance;
+                float force = (springOffset * springStrength) - (projectedVelocity * springDamping);
+
+                rb.AddForceAtPosition(springDirection * force, tire.position);
+
+                Debug.Log("springOffset: " + springOffset);
+            }
         }
-    }
-
-    void MoveCar() {
     }
 }
