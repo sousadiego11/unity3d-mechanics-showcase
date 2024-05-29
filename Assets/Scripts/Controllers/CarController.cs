@@ -33,13 +33,13 @@ public class CarController : Mechanic
             Debug.DrawRay(spring.transform.position, Vector3.down * spring.restDist, Color.green);
 
             if (Physics.Raycast(spring.transform.position, -spring.transform.up, out RaycastHit hit, spring.restDist)) {
-                HandleSuspensions(spring, hit);
-                HandleForwardTorque(tire, hit);
+                HandleSuspensionPhysics(spring, hit);
+                HandleTorquePhysics(tire, hit);
             }
         }
     }
 
-    void HandleSuspensions(Spring spring, RaycastHit hit) {
+    void HandleSuspensionPhysics(Spring spring, RaycastHit hit) {
         Vector3 tireVel = rb.GetPointVelocity(spring.transform.position);
 
         float projectedVelocity = Vector3.Dot(spring.transform.up, tireVel);
@@ -50,7 +50,7 @@ public class CarController : Mechanic
     }
 
     // Basic newton force law
-    void HandleForwardTorque(Tire tire, RaycastHit _) {
+    void HandleTorquePhysics(Tire tire, RaycastHit _) {
         if (Mathf.Abs(rb.velocity.magnitude) < maxTorque) {
             float accelerationInput = Input.GetAxis("Vertical");
             float accelerationFactor = accelerationInput * acceleration;
@@ -75,11 +75,9 @@ public class CarController : Mechanic
                 float deltaLeft = Mathf.Atan( wheelBase * tanDeltaAck / (wheelBase + 0.5f * trackWidth * tanDeltaAck) ) * Mathf.Rad2Deg;
 
                 if (tire.position == Tire.Position.FL) {
-                    Quaternion newRotation = Quaternion.Euler(tire.transform.localEulerAngles.x, deltaLeft, tire.transform.localEulerAngles.z);
-                    tire.transform.localRotation = newRotation;
+                    tire.transform.localRotation = Quaternion.Euler(tire.transform.localEulerAngles.x, deltaLeft, tire.transform.localEulerAngles.z);
                 } else if (tire.position == Tire.Position.FR) {
-                    Quaternion newRotation = Quaternion.Euler(tire.transform.localEulerAngles.x, deltaRight, tire.transform.localEulerAngles.z);
-                    tire.transform.localRotation = newRotation;
+                    tire.transform.localRotation = Quaternion.Euler(tire.transform.localEulerAngles.x, deltaRight, tire.transform.localEulerAngles.z);
                 }
             }
         }
