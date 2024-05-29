@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 2677389489064186874}
   - component: {fileID: 3380756699038289850}
   m_Layer: 0
-  m_Name: Front Pivot
+  m_Name: Front Track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1016,6 +1016,8 @@ MonoBehaviour:
       grip: 1
   acceleration: 4
   maxTorque: 5
+  wheelBase: 2
+  trackWidth: 0.8
 --- !u!54 &6004313536027717337
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1394,7 +1396,7 @@ GameObject:
   - component: {fileID: 4981989079052152800}
   - component: {fileID: 3088732732780329571}
   m_Layer: 0
-  m_Name: 'Back Pivot '
+  m_Name: Back Track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1643,7 +1645,7 @@ GameObject:
   - component: {fileID: 5492381804390041747}
   - component: {fileID: 547489395743453659}
   m_Layer: 0
-  m_Name: Base
+  m_Name: Wheel Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

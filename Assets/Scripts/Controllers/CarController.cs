@@ -10,6 +10,8 @@ public class CarController : Mechanic
     [Header("[Car Movement]")]
     [SerializeField] float acceleration;
     [SerializeField] float maxTorque;
+    [SerializeField] float wheelBase;
+    [SerializeField] float trackWidth;
 
     private Rigidbody rb;
     void Start() {
@@ -60,12 +62,26 @@ public class CarController : Mechanic
         }
     }
 
+    // Kinematics Ackerman Geometry
     void HandleSteering() {
         foreach (WheelAssembly WA in wheelAssemblies) {
-            Spring spring = WA.spring;
             Tire tire = WA.tire;
+            if (tire.position == Tire.Position.FL || tire.position == Tire.Position.FR) {
+                float deltaSin = Input.GetAxis("Horizontal");
+                float deltaAck = deltaSin * tire.maxSteerAngle * Mathf.Deg2Rad;
+                float tanDeltaAck = Mathf.Tan(deltaAck);
 
-            Debug.Log("Apply ackerman steering");
+                float deltaRight = Mathf.Atan( wheelBase * tanDeltaAck / (wheelBase - 0.5f * trackWidth * tanDeltaAck) ) * Mathf.Rad2Deg;
+                float deltaLeft = Mathf.Atan( wheelBase * tanDeltaAck / (wheelBase + 0.5f * trackWidth * tanDeltaAck) ) * Mathf.Rad2Deg;
+
+                if (tire.position == Tire.Position.FL) {
+                    Quaternion newRotation = Quaternion.Euler(tire.transform.localEulerAngles.x, deltaLeft, tire.transform.localEulerAngles.z);
+                    tire.transform.localRotation = newRotation;
+                } else if (tire.position == Tire.Position.FR) {
+                    Quaternion newRotation = Quaternion.Euler(tire.transform.localEulerAngles.x, deltaRight, tire.transform.localEulerAngles.z);
+                    tire.transform.localRotation = newRotation;
+                }
+            }
         }
     }
 }
