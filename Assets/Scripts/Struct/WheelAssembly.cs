@@ -13,11 +13,19 @@ public struct Spring {
     [SerializeField] public float strength;
     [SerializeField] public float damping;
     [SerializeField] public float restDist;
+    [SerializeField] public float maxDist;
 }
 
 [Serializable]
 public struct Tire {
     [SerializeField] public Transform transform;
-    [SerializeField] [Range(0, 1)] public float friction;
-    [SerializeField] [Range(0, 15)] public float maxAngle;
+    [SerializeField] public Position position;
+    [SerializeField] public float maxSteerAngle;
+    [SerializeField] [Range(0, 1)] public float grip;
+    public enum Position {
+        FL,
+        FR,
+        BL,
+        BR
+    }
 }

@@ -264,7 +264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 722369092535943083, guid: b44d8182f6cd78546846de08bc8744ad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.07975149
+      value: 0.97
       objectReference: {fileID: 0}
     - target: {fileID: 722369092535943083, guid: b44d8182f6cd78546846de08bc8744ad, type: 3}
       propertyPath: m_LocalPosition.z
@@ -309,6 +309,10 @@ PrefabInstance:
     - target: {fileID: 5106920521481078649, guid: b44d8182f6cd78546846de08bc8744ad, type: 3}
       propertyPath: m_Name
       value: CarAssembly
+      objectReference: {fileID: 0}
+    - target: {fileID: 9067548261436360825, guid: b44d8182f6cd78546846de08bc8744ad, type: 3}
+      propertyPath: acceleration
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

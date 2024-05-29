@@ -16,18 +16,20 @@ public class CarController : Mechanic
         rb = GetComponent<Rigidbody>();
     }
 
-    void FixedUpdate() {
-        HandleForces();
+    void Update() {
+        HandleSteering();
     }
 
-    void HandleForces() {
+    void FixedUpdate() {
+        HandlePhysics();
+    }
+
+    void HandlePhysics() {
         foreach (WheelAssembly WA in wheelAssemblies) {
             Spring spring = WA.spring;
             Tire tire = WA.tire;
-
             Debug.DrawRay(spring.transform.position, Vector3.down * spring.restDist, Color.green);
 
-            HandleTireRotation(tire);
             if (Physics.Raycast(spring.transform.position, -spring.transform.up, out RaycastHit hit, spring.restDist)) {
                 HandleSuspensions(spring, hit);
                 HandleForwardTorque(tire, hit);
@@ -58,12 +60,12 @@ public class CarController : Mechanic
         }
     }
 
-    void HandleTireRotation(Tire tire) {
-        // float rotationInput = Input.GetAxis("Horizontal");
-        // float steerAngle = rotationInput * tire.maxAngle;
+    void HandleSteering() {
+        foreach (WheelAssembly WA in wheelAssemblies) {
+            Spring spring = WA.spring;
+            Tire tire = WA.tire;
 
-        // Quaternion rotation = Quaternion.Euler(0f, steerAngle, tire.transform.eulerAngles.z);
-
-        // tire.transform.rotation = rotation;
+            Debug.Log("Apply ackerman steering");
+        }
     }
 }
