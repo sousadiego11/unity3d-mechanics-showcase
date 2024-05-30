@@ -1242,6 +1242,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1669684891}
     m_Modifications:
+    - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: wheelAssemblies.Array.data[0].tire.grip
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: wheelAssemblies.Array.data[1].tire.grip
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: wheelAssemblies.Array.data[2].tire.grip
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: wheelAssemblies.Array.data[3].tire.grip
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2753713521124346594, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
       propertyPath: m_Name
       value: Truck

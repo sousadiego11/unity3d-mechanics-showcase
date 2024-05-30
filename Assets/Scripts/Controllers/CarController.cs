@@ -32,6 +32,14 @@ public class CarController : Mechanic
         return springTip.maxDist + tire.mesh.bounds.size.y;
     }
 
+    float SuspensionRestDist(SpringTip springTip, Tire tire) {
+        return springTip.restDist + tire.mesh.bounds.size.y;
+    }
+
+    float TireMass() {
+        return rb.mass * 0.04f;
+    }
+
     void HandlePhysics() {
         foreach (WheelAssembly WA in wheelAssemblies) {
             SpringTip springTip = WA.springTip;
@@ -43,8 +51,8 @@ public class CarController : Mechanic
             if (Physics.Raycast(springTip.transform.position, -springTip.transform.up, out RaycastHit hit, rayDistance, layerMask)) {
                 isGrounded = true;
                 HandleSuspensionPhysics(springTip, tire, hit);
-                HandleSteerPhysics(tire, hit);
                 HandleTorquePhysics(tire, hit);
+                HandleSteerPhysics(tire, hit);
             } else {
                 isGrounded = false;
             }
@@ -55,10 +63,11 @@ public class CarController : Mechanic
         Vector3 springVel = rb.GetPointVelocity(springTip.transform.position);
 
         float projectedVelocity = Vector3.Dot(springTip.transform.up, springVel);
-        float springOffset = SuspensionMaxDist(springTip, tire) - hit.distance;
+        float springOffset = SuspensionRestDist(springTip, tire) - hit.distance;
         float force = (springOffset * springTip.strength) - (projectedVelocity * springTip.damping);
 
         rb.AddForceAtPosition(springTip.transform.up * force, springTip.transform.position);
+        Debug.DrawRay(springTip.transform.position, springTip.transform.up * force * 0.005f, Color.green);
     }
 
     // Basic newton force law
@@ -66,30 +75,26 @@ public class CarController : Mechanic
         if (Mathf.Abs(rb.velocity.magnitude) < maxTorque) {
             float accelerationInput = Input.GetAxis("Vertical");
             float accelerationFactor = accelerationInput * acceleration;
-            float torque = rb.mass / 4 * accelerationFactor;
+            float torque = rb.mass / wheelAssemblies.Count * accelerationFactor;
 
             rb.AddForceAtPosition(tire.transform.forward * torque, tire.transform.position);
+            if (tire.position == Tire.Position.FL || tire.position == Tire.Position.FR) Debug.DrawRay(tire.transform.position, tire.transform.forward * torque * 0.02f, Color.blue);
         } else {
             rb.velocity = rb.velocity.normalized * maxTorque;
         }
     }
 
     void HandleSteerPhysics(Tire tire, RaycastHit _) {
-        // Vector3 steerDir = tire.transform.right;
-        // Vector3 tireVel = rb.GetPointVelocity(tire.transform.position);
+        Vector3 steerDirection = tire.transform.right;
+        Vector3 tireVelocity = rb.GetPointVelocity(tire.transform.position);
 
-        // float currentSteeringVel = Vector3.Dot(steerDir, tireVel);
-        // float newSteeringVel = -currentSteeringVel * tire.grip;
-        // float tireMass = rb.mass / wheelAssemblies.Count;
-        // Vector3 force = steerDir * tireMass * newSteeringVel;
+        float steeringVelocity = Vector3.Dot(steerDirection, tireVelocity);
+        float desiredChangeVelocity = -steeringVelocity * tire.grip / Time.fixedDeltaTime;
 
-        // Debug.Log("currentSteeringVel: " + currentSteeringVel);
-        // Debug.Log("newSteeringVel: " + newSteeringVel);
-        // Debug.Log("tire.grip: " + tire.grip);
-        // Debug.Log("force: " + force);
+        Vector3 force = steerDirection * TireMass() * desiredChangeVelocity;
 
-        // rb.AddForceAtPosition(force, tire.transform.position);
-
+        rb.AddForceAtPosition(force, tire.transform.position);
+        Debug.DrawRay(tire.transform.position, steerDirection * force.magnitude * 0.02f, Color.red);
     }
 
     // Kinematics Ackerman Geometry
