@@ -12,6 +12,8 @@ public class CarController : Mechanic
     [SerializeField] float maxTorque;
     [SerializeField] float wheelBase;
     [SerializeField] float trackWidth;
+    [SerializeField] LayerMask layerMask;
+    [SerializeField] bool isGrounded;
 
     private Rigidbody rb;
     void Start() {
@@ -26,27 +28,37 @@ public class CarController : Mechanic
         HandlePhysics();
     }
 
+    float SuspensionMaxDist(SpringTip springTip, Tire tire) {
+        return springTip.maxDist + tire.mesh.bounds.size.y;
+    }
+
     void HandlePhysics() {
         foreach (WheelAssembly WA in wheelAssemblies) {
-            Spring spring = WA.spring;
+            SpringTip springTip = WA.springTip;
             Tire tire = WA.tire;
-            Debug.DrawRay(spring.transform.position, Vector3.down * spring.restDist, Color.green);
+            float rayDistance = SuspensionMaxDist(springTip, tire);
 
-            if (Physics.Raycast(spring.transform.position, -spring.transform.up, out RaycastHit hit, spring.restDist)) {
-                HandleSuspensionPhysics(spring, hit);
+            Debug.DrawRay(springTip.transform.position, Vector3.down * rayDistance, Color.green);
+
+            if (Physics.Raycast(springTip.transform.position, -springTip.transform.up, out RaycastHit hit, rayDistance, layerMask)) {
+                isGrounded = true;
+                HandleSuspensionPhysics(springTip, tire, hit);
+                HandleSteerPhysics(tire, hit);
                 HandleTorquePhysics(tire, hit);
+            } else {
+                isGrounded = false;
             }
         }
     }
 
-    void HandleSuspensionPhysics(Spring spring, RaycastHit hit) {
-        Vector3 tireVel = rb.GetPointVelocity(spring.transform.position);
+    void HandleSuspensionPhysics(SpringTip springTip, Tire tire, RaycastHit hit) {
+        Vector3 springVel = rb.GetPointVelocity(springTip.transform.position);
 
-        float projectedVelocity = Vector3.Dot(spring.transform.up, tireVel);
-        float springOffset = spring.restDist - hit.distance;
-        float force = (springOffset * spring.strength) - (projectedVelocity * spring.damping);
+        float projectedVelocity = Vector3.Dot(springTip.transform.up, springVel);
+        float springOffset = SuspensionMaxDist(springTip, tire) - hit.distance;
+        float force = (springOffset * springTip.strength) - (projectedVelocity * springTip.damping);
 
-        rb.AddForceAtPosition(spring.transform.up * force, spring.transform.position);
+        rb.AddForceAtPosition(springTip.transform.up * force, springTip.transform.position);
     }
 
     // Basic newton force law
@@ -54,12 +66,30 @@ public class CarController : Mechanic
         if (Mathf.Abs(rb.velocity.magnitude) < maxTorque) {
             float accelerationInput = Input.GetAxis("Vertical");
             float accelerationFactor = accelerationInput * acceleration;
-            float torque = rb.mass * accelerationFactor;
+            float torque = rb.mass / 4 * accelerationFactor;
 
             rb.AddForceAtPosition(tire.transform.forward * torque, tire.transform.position);
         } else {
             rb.velocity = rb.velocity.normalized * maxTorque;
         }
+    }
+
+    void HandleSteerPhysics(Tire tire, RaycastHit _) {
+        // Vector3 steerDir = tire.transform.right;
+        // Vector3 tireVel = rb.GetPointVelocity(tire.transform.position);
+
+        // float currentSteeringVel = Vector3.Dot(steerDir, tireVel);
+        // float newSteeringVel = -currentSteeringVel * tire.grip;
+        // float tireMass = rb.mass / wheelAssemblies.Count;
+        // Vector3 force = steerDir * tireMass * newSteeringVel;
+
+        // Debug.Log("currentSteeringVel: " + currentSteeringVel);
+        // Debug.Log("newSteeringVel: " + newSteeringVel);
+        // Debug.Log("tire.grip: " + tire.grip);
+        // Debug.Log("force: " + force);
+
+        // rb.AddForceAtPosition(force, tire.transform.position);
+
     }
 
     // Kinematics Ackerman Geometry
@@ -75,9 +105,9 @@ public class CarController : Mechanic
                 float deltaLeft = Mathf.Atan( wheelBase * tanDeltaAck / (wheelBase + 0.5f * trackWidth * tanDeltaAck) ) * Mathf.Rad2Deg;
 
                 if (tire.position == Tire.Position.FL) {
-                    tire.transform.localRotation = Quaternion.Euler(tire.transform.localEulerAngles.x, deltaLeft, tire.transform.localEulerAngles.z);
+                    tire.transform.localRotation = Quaternion.Lerp(tire.transform.localRotation, Quaternion.Euler(tire.transform.localEulerAngles.x, deltaLeft, tire.transform.localEulerAngles.z), Time.deltaTime * 5);
                 } else if (tire.position == Tire.Position.FR) {
-                    tire.transform.localRotation = Quaternion.Euler(tire.transform.localEulerAngles.x, deltaRight, tire.transform.localEulerAngles.z);
+                    tire.transform.localRotation = Quaternion.Lerp(tire.transform.localRotation, Quaternion.Euler(tire.transform.localEulerAngles.x, deltaRight, tire.transform.localEulerAngles.z), Time.deltaTime * 5);
                 }
             }
         }
