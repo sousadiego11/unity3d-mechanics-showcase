@@ -278,7 +278,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3.1236045, y: 1.12, z: -2.088779}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 457886369495413889}
@@ -310,10 +310,11 @@ MonoBehaviour:
   wheelAssemblies:
   - springTip:
       transform: {fileID: 6075571862606344343}
-      strength: 2000
-      damping: 150
-      restDist: 0.2
-      maxDist: 0.3
+      strength: 5000
+      damping: 1000
+      restDist: 0.5
+      maxDist: 0.6
+      minDist: 0.4
     tire:
       transform: {fileID: 4428170323384507896}
       mesh: {fileID: 5429918935428814985}
@@ -322,10 +323,11 @@ MonoBehaviour:
       grip: 1
   - springTip:
       transform: {fileID: 5373823841838352398}
-      strength: 2000
-      damping: 150
-      restDist: 0.2
-      maxDist: 0.3
+      strength: 5000
+      damping: 1000
+      restDist: 0.5
+      maxDist: 0.6
+      minDist: 0.4
     tire:
       transform: {fileID: 6887536414954520869}
       mesh: {fileID: 2223724152195832441}
@@ -334,10 +336,11 @@ MonoBehaviour:
       grip: 1
   - springTip:
       transform: {fileID: 5295769184879510658}
-      strength: 2000
-      damping: 150
-      restDist: 0.2
-      maxDist: 0.3
+      strength: 5000
+      damping: 1000
+      restDist: 0.5
+      maxDist: 0.6
+      minDist: 0.4
     tire:
       transform: {fileID: 6808018379708531993}
       mesh: {fileID: 1099202513675976298}
@@ -346,10 +349,11 @@ MonoBehaviour:
       grip: 1
   - springTip:
       transform: {fileID: 9175172444286769179}
-      strength: 2000
-      damping: 150
-      restDist: 0.2
-      maxDist: 0.3
+      strength: 5000
+      damping: 1000
+      restDist: 0.5
+      maxDist: 0.6
+      minDist: 0.4
     tire:
       transform: {fileID: 6635585070974330337}
       mesh: {fileID: 6846697483168921292}
@@ -1065,7 +1069,7 @@ Transform:
   m_GameObject: {fileID: 8330607981155392942}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0.074}
   m_LocalScale: {x: 0.05, y: 0.05, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []

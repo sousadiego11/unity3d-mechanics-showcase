@@ -28,14 +28,6 @@ public class CarController : Mechanic
         HandlePhysics();
     }
 
-    float SuspensionMaxDist(SpringTip springTip, Tire tire) {
-        return springTip.maxDist + tire.mesh.bounds.size.y;
-    }
-
-    float SuspensionRestDist(SpringTip springTip, Tire tire) {
-        return springTip.restDist + tire.mesh.bounds.size.y;
-    }
-
     float TireMass() {
         return rb.mass * 0.04f;
     }
@@ -44,11 +36,9 @@ public class CarController : Mechanic
         foreach (WheelAssembly WA in wheelAssemblies) {
             SpringTip springTip = WA.springTip;
             Tire tire = WA.tire;
-            float rayDistance = SuspensionMaxDist(springTip, tire);
+            Debug.DrawRay(tire.transform.position, Vector3.down * springTip.maxDist, Color.green);
 
-            Debug.DrawRay(springTip.transform.position, Vector3.down * rayDistance, Color.green);
-
-            if (Physics.Raycast(springTip.transform.position, -springTip.transform.up, out RaycastHit hit, rayDistance, layerMask)) {
+            if (Physics.Raycast(tire.transform.position, -tire.transform.up, out RaycastHit hit, springTip.maxDist, layerMask)) {
                 isGrounded = true;
                 HandleSuspensionPhysics(springTip, tire, hit);
                 HandleTorquePhysics(tire, hit);
@@ -59,11 +49,11 @@ public class CarController : Mechanic
         }
     }
 
-    void HandleSuspensionPhysics(SpringTip springTip, Tire tire, RaycastHit hit) {
+    void HandleSuspensionPhysics(SpringTip springTip, Tire _, RaycastHit hit) {
         Vector3 springVel = rb.GetPointVelocity(springTip.transform.position);
 
         float projectedVelocity = Vector3.Dot(springTip.transform.up, springVel);
-        float springOffset = SuspensionRestDist(springTip, tire) - hit.distance;
+        float springOffset = springTip.restDist - hit.distance;
         float force = (springOffset * springTip.strength) - (projectedVelocity * springTip.damping);
 
         rb.AddForceAtPosition(springTip.transform.up * force, springTip.transform.position);
