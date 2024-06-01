@@ -314,7 +314,6 @@ MonoBehaviour:
       damping: 1000
       restDist: 0.5
       maxDist: 0.6
-      minDist: 0.4
     tire:
       transform: {fileID: 4428170323384507896}
       mesh: {fileID: 5429918935428814985}
@@ -327,7 +326,6 @@ MonoBehaviour:
       damping: 1000
       restDist: 0.5
       maxDist: 0.6
-      minDist: 0.4
     tire:
       transform: {fileID: 6887536414954520869}
       mesh: {fileID: 2223724152195832441}
@@ -340,7 +338,6 @@ MonoBehaviour:
       damping: 1000
       restDist: 0.5
       maxDist: 0.6
-      minDist: 0.4
     tire:
       transform: {fileID: 6808018379708531993}
       mesh: {fileID: 1099202513675976298}
@@ -353,7 +350,6 @@ MonoBehaviour:
       damping: 1000
       restDist: 0.5
       maxDist: 0.6
-      minDist: 0.4
     tire:
       transform: {fileID: 6635585070974330337}
       mesh: {fileID: 6846697483168921292}
@@ -414,8 +410,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3645985, y: 0.93711865, z: 2.7329147}
-  m_Center: {x: 0.0021446943, y: 0.87216157, z: -0.017157435}
+  m_Size: {x: 1.3645985, y: 1.0972803, z: 2.7329147}
+  m_Center: {x: 0.0021446943, y: 0.74462545, z: -0.017157435}
 --- !u!1 &2813373231321005665
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ public class CarController : Mechanic
     }
 
     float TireMass() {
-        return rb.mass * 0.04f;
+        return rb.mass * 0.05f;
     }
 
     void HandlePhysics() {
@@ -68,7 +68,7 @@ public class CarController : Mechanic
             float torque = rb.mass / wheelAssemblies.Count * accelerationFactor;
 
             rb.AddForceAtPosition(tire.transform.forward * torque, tire.transform.position);
-            if (tire.position == Tire.Position.FL || tire.position == Tire.Position.FR) Debug.DrawRay(tire.transform.position, tire.transform.forward * torque * 0.02f, Color.blue);
+            Debug.DrawRay(tire.transform.position, tire.transform.forward * torque * 0.02f, Color.blue);
         } else {
             rb.velocity = rb.velocity.normalized * maxTorque;
         }

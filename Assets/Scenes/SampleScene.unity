@@ -3523,8 +3523,28 @@ PrefabInstance:
       value: 3050
       objectReference: {fileID: 0}
     - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: maxTorque
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
       propertyPath: isGrounded
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: wheelAssemblies.Array.data[0].tire.grip
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: wheelAssemblies.Array.data[1].tire.grip
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: wheelAssemblies.Array.data[2].tire.grip
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: wheelAssemblies.Array.data[3].tire.grip
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
       propertyPath: wheelAssemblies.Array.data[0].springTip.damping
