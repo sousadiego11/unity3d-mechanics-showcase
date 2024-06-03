@@ -3567,8 +3567,16 @@ PrefabInstance:
       value: 3050
       objectReference: {fileID: 0}
     - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: wheelAssemblies.Array.data[0].tire.maxSteerAngle
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
       propertyPath: wheelAssemblies.Array.data[1].springTip.strength
       value: 3050
+      objectReference: {fileID: 0}
+    - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: wheelAssemblies.Array.data[1].tire.maxSteerAngle
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 991667293592513856, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
       propertyPath: wheelAssemblies.Array.data[2].springTip.strength
@@ -3581,6 +3589,18 @@ PrefabInstance:
     - target: {fileID: 2753713521124346594, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
       propertyPath: m_Name
       value: Truck
+      objectReference: {fileID: 0}
+    - target: {fileID: 3277766719652679768, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3277766719652679768, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3277766719652679768, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3277766719652679768, guid: a556d874a0f1c7d439c348f9415df05d, type: 3}
       propertyPath: m_LocalPosition.x

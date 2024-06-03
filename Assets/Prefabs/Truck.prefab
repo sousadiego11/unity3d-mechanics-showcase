@@ -277,7 +277,7 @@ Transform:
   m_GameObject: {fileID: 2753713521124346594}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.1236045, y: 1.12, z: -2.088779}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -357,7 +357,8 @@ MonoBehaviour:
       maxSteerAngle: 0
       grip: 1
   acceleration: 3
-  maxTorque: 5
+  maxSpeed: 90
+  currentSpeed: 0
   wheelBase: 1.5
   trackWidth: 1
   layerMask:

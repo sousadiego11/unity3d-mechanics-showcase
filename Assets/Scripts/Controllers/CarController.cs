@@ -9,7 +9,8 @@ public class CarController : Mechanic
 
     [Header("[Car Movement]")]
     [SerializeField] float acceleration;
-    [SerializeField] float maxTorque;
+    [SerializeField] [Tooltip("Maximum speed in Km/H")] float maxSpeed;
+    [SerializeField] [Tooltip("Current speed in Km/H")] float currentSpeed;
     [SerializeField] float wheelBase;
     [SerializeField] float trackWidth;
     [SerializeField] LayerMask layerMask;
@@ -30,6 +31,10 @@ public class CarController : Mechanic
 
     float TireMass() {
         return rb.mass * 0.05f;
+    }
+
+    float CarSpeedKMH() {
+        return rb.velocity.magnitude * 3.6f;
     }
 
     void HandlePhysics() {
@@ -62,15 +67,14 @@ public class CarController : Mechanic
 
     // Basic newton force law
     void HandleTorquePhysics(Tire tire, RaycastHit _) {
-        if (Mathf.Abs(rb.velocity.magnitude) < maxTorque) {
+        if (Mathf.Abs(CarSpeedKMH()) < maxSpeed) {
             float accelerationInput = Input.GetAxis("Vertical");
             float accelerationFactor = accelerationInput * acceleration;
             float torque = rb.mass / wheelAssemblies.Count * accelerationFactor;
 
             rb.AddForceAtPosition(tire.transform.forward * torque, tire.transform.position);
             Debug.DrawRay(tire.transform.position, tire.transform.forward * torque * 0.02f, Color.blue);
-        } else {
-            rb.velocity = rb.velocity.normalized * maxTorque;
+            currentSpeed = CarSpeedKMH();
         }
     }
 
