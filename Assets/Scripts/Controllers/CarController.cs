@@ -33,6 +33,10 @@ public class CarController : Mechanic
         return rb.mass * 0.05f;
     }
 
+    float TireRadius(Tire tire) {
+        return Mathf.Max(tire.mesh.bounds.size.x, tire.mesh.bounds.size.z) / 2f;
+    }
+
     float CarSpeedKMH() {
         return rb.velocity.magnitude * 3.6f;
     }
@@ -41,9 +45,11 @@ public class CarController : Mechanic
         foreach (WheelAssembly WA in wheelAssemblies) {
             SpringTip springTip = WA.springTip;
             Tire tire = WA.tire;
-            Debug.DrawRay(tire.transform.position, Vector3.down * springTip.maxDist, Color.green);
+            float rayDistance = springTip.maxDist + TireRadius(tire);
 
-            if (Physics.Raycast(tire.transform.position, -tire.transform.up, out RaycastHit hit, springTip.maxDist, layerMask)) {
+            Debug.DrawRay(springTip.transform.position, Vector3.down * rayDistance, Color.green);
+
+            if (Physics.Raycast(springTip.transform.position, -springTip.transform.up, out RaycastHit hit, rayDistance, layerMask)) {
                 isGrounded = true;
                 HandleSuspensionPhysics(springTip, tire, hit);
                 HandleTorquePhysics(tire, hit);
@@ -54,11 +60,11 @@ public class CarController : Mechanic
         }
     }
 
-    void HandleSuspensionPhysics(SpringTip springTip, Tire _, RaycastHit hit) {
+    void HandleSuspensionPhysics(SpringTip springTip, Tire tire, RaycastHit hit) {
         Vector3 springVel = rb.GetPointVelocity(springTip.transform.position);
 
         float projectedVelocity = Vector3.Dot(springTip.transform.up, springVel);
-        float springOffset = springTip.restDist - hit.distance;
+        float springOffset = springTip.restDist - (hit.distance - TireRadius(tire));
         float force = (springOffset * springTip.strength) - (projectedVelocity * springTip.damping);
 
         rb.AddForceAtPosition(springTip.transform.up * force, springTip.transform.position);
