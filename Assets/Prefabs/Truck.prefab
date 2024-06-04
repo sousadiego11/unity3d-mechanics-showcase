@@ -281,6 +281,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8333124621727670097}
   - {fileID: 457886369495413889}
   - {fileID: 966500587882610989}
   - {fileID: 5494190309353788059}
@@ -356,8 +357,8 @@ MonoBehaviour:
       position: 3
       maxSteerAngle: 0
       grip: 0.6
-  acceleration: 3
-  maxSpeed: 90
+  acceleration: 4
+  maxSpeed: 60
   currentSpeed: 0
   wheelBase: 1.5
   trackWidth: 1
@@ -365,6 +366,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   isGrounded: 0
+  centerMass: {fileID: 8333124621727670097}
 --- !u!54 &739626967799000372
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -411,8 +413,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3645985, y: 0.8572378, z: 2.5974293}
-  m_Center: {x: 0, y: 0.7, z: 0}
+  m_Size: {x: 1.2, y: 1, z: 2.5}
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!1 &2813373231321005665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,3 +1228,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &9219564833335556885
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8333124621727670097}
+  m_Layer: 0
+  m_Name: Center Mass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8333124621727670097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9219564833335556885}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3277766719652679768}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -15,10 +15,12 @@ public class CarController : Mechanic
     [SerializeField] float trackWidth;
     [SerializeField] LayerMask layerMask;
     [SerializeField] bool isGrounded;
+    [SerializeField] Transform centerMass;
 
     private Rigidbody rb;
     void Start() {
         rb = GetComponent<Rigidbody>();
+        rb.centerOfMass = centerMass.transform.localPosition;
     }
 
     void Update() {
@@ -54,8 +56,11 @@ public class CarController : Mechanic
                 HandleSuspensionPhysics(springTip, tire, hit);
                 HandleTorquePhysics(tire, hit);
                 HandleSteerPhysics(tire, hit);
+                Vector3 localHit = rb.transform.InverseTransformPoint(hit.point);
+                tire.transform.localPosition = new Vector3(tire.transform.localPosition.x, localHit.y + TireRadius(tire), tire.transform.localPosition.z);
             } else {
                 isGrounded = false;
+                tire.transform.localPosition = new Vector3(tire.transform.localPosition.x, springTip.transform.localPosition.y - springTip.maxDist, tire.transform.localPosition.z);
             }
         }
     }
